@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './Header'
 import { Outlet } from 'react-router-dom'
 
-const Layout = () => {
+const PageLayout = () => {
   return (
     <div className='w-full flex justify-center flex-col overflow-x-hidden'>
         <div className='flex flex-col '>
@@ -15,4 +15,4 @@ const Layout = () => {
   )
 }
 
-export default Layout
+export default PageLayout
