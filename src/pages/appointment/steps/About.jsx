@@ -9,6 +9,8 @@ const About = ({ handleSteps }) => {
         handleSteps(3)
     }
 
+    const service = localStorage.getItem("service")
+
   return (
    <div className='mt-[59px]'>
          <div>
@@ -41,7 +43,7 @@ const About = ({ handleSteps }) => {
                         <div className="flex flex-col  w-[504px] gap-6">
 
                             <div className='flex flex-col gap-[6px]  w-full'>
-                                <label className='font-mulish font-semibold text-[#333333] text-base'>Tell us your story. Why do you think you need an HIV test?</label>
+                                <label className='font-mulish font-semibold text-[#333333] text-base'>Tell us your story. Why do you think you need an {service}?</label>
                                 <textarea
                                     name="story"
                                     placeholder="Your Story"
@@ -83,7 +85,7 @@ const About = ({ handleSteps }) => {
                                         className={`h-5 w-5 border rounded-sm ${values.checked ? 'bg-[#1EC677] border-[#1EC677]' : 'border-[#E5E5EA]'}`}  // Conditional styling
                                     />
                                     <p className='text-[#757575] font-sans text-sm'>
-                                        Test for HIV 
+                                        {service} {/* Test for   */}
                                     </p>
                                 </div>
                                 <div className='flex gap-1.5 items-center'>

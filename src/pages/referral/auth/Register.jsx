@@ -9,8 +9,9 @@ import { toast } from 'react-toastify'
 
 import { CgSpinner } from 'react-icons/cg'
 import { Listbox } from '@headlessui/react'
+import { IoIosArrowDown } from 'react-icons/io'
 
-const types = ["Individual", "Organization"];
+const types = ["Select Type", "Individual", "Organization"];
 
 const Register = () => {
     const [loading, setLoading] = useState(false)
@@ -98,8 +99,8 @@ const Register = () => {
     //       }
     //   };
 
-      const submitForm = (values) => {
-       
+    const submitForm = (values) => {
+       navigate("/dashboard")
     }
 
 
@@ -150,8 +151,14 @@ const Register = () => {
                                         }}
                                     >
                                         <div className="relative mt-1">
-                                            <Listbox.Button className="w-full h-[51px] font-mulish text-[#424242] cursor-pointer border border-[#E5E5EA] rounded-md bg-[#FFF] px-4 py-2 text-left">
-                                                <p className='font-mulish text-[#424242] text-base'>{selectedType}</p>
+                                            <Listbox.Button className="w-full h-[51px] font-mulish text-[#424242] cursor-pointer hover:border-[#2D84FF] border border-[#E5E5EA] rounded-md bg-[#FFF] px-4 py-2 text-left">
+                                                <div className='flex items-center justify-between'>
+                                                    <p className='font-mulish text-[#424242] text-base'>{selectedType}</p>
+                                                    <IoIosArrowDown
+                                                        className="h-5 w-5 text-[#2D84FF]"
+                                                        aria-hidden="true"
+                                                    />
+                                                </div>
                                             </Listbox.Button>
                                             <Listbox.Options className="absolute mt-1 w-full rounded-md bg-[#fff] z-20 shadow-lg">
                                                 {types.map((type) => (
@@ -237,7 +244,7 @@ const Register = () => {
                                         ) : null}
                                     </div>
                                 </div>
-                                <div className={`${values?.password ? "my-2" : "hidden"}`}>
+                                <div className={`${values?.password ? "mb-2" : "hidden"}`}>
                                     <p className={`text-sm  font-poppins ${passwordStrength === 0 ? 'text-red-500' : passwordStrength === 1 ? 'text-orange-500' : passwordStrength === 2 ? 'text-yellow-500' : passwordStrength === 3 ? 'text-green-400' : 'text-green-600'}`}>
                                         {passwordStrength === 0 && "Password Strength: Weak"}
                                         {passwordStrength === 1 && "Password Strength: Fair"}

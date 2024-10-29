@@ -8,7 +8,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { CgSpinner } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 
-const locations = ["Lagos", "Abuja", "Port Harcourt"];
+const locations = ["Lagos", "Port Harcourt"];
 
 const Booking = ({ handleSteps }) => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);

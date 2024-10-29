@@ -96,7 +96,7 @@ const Profile = ({ handleSteps }) => {
                             
 
                             <button
-                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center rounded-[14px] justify-center mt-[32px] h-[51px] text-center`}
+                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center cursor-pointer rounded-[14px] justify-center mt-[22px] h-[51px] text-center`}
                                 type="submit"
                                 disabled={!isValid}
                             >

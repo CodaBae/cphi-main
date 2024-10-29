@@ -98,10 +98,15 @@ const Dashboard = () => {
                     <p className='font-sans text-sm text-[#424242]'>https://refer.cphinigeria.com/johndeo</p>
                     <BiSolidCopy className='text-[#2D84FF] w-5 h-5' />
                 </div>
+             
                 <div className='flex flex-col mt-3 items-center gap-2'>
-                    <img src={QrCode} alt='QrCode' className='w-[61px] h-[64px]' />
+                    <div className='flex items-start gap-2'>
+                        <img src={QrCode} alt='QrCode' className='w-[61px] h-[64px]' />
+                        <TbDownload className='w-4 h-4 text-[#2D84FF] cursor-pointer'/>
+                    </div>
                     <img src={Logo} alt='Logo' className='w-[190px] h-[39px]' />
                 </div>
+                 
             </div>
             <div className='w-[336px] rounded-lg h-[167px] border border-[#E0E2E7] flex flex-col py-[11px] px-5'>
                 <div className='flex items-center justify-between'>
@@ -127,15 +132,15 @@ const Dashboard = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    <div className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 rounded-lg flex items-center p-3'>
+                    <div className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'>
                         <CiFilter className='text-base text-[#6B788E]' />
                         <p className='text-xs font-semibold font-sans text-[#7A8699]'>Filter</p>
                     </div>
-                    <div className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 rounded-lg flex items-center p-3'>
+                    <div className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'>
                         <TbDownload className='text-base text-[#6B788E]' />
                         <p className='text-xs font-semibold font-sans text-[#7A8699]'>Export</p>
                     </div>
-                    <div onClick={() => setOpenRequest(true)} className='w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col judtify-center items-center p-3'>
+                    <div onClick={() => setOpenRequest(true)} className='w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col justify-center items-center p-3'>
                         <p className='text-xs font-semibold text-center font-sans text-[#fff]'>Request Reward</p>
                     </div>
                     
@@ -176,7 +181,7 @@ const Dashboard = () => {
                     <tbody className=''>
                         {
                             currentReferrals.map((item) => (
-                                <tr key={item.id} className='w-full mt-[18px] border cursor-pointer border-[#F0F1F3]' onClick={() => navigate("/referrals/details")}>
+                                <tr key={item.id} className='w-full mt-[18px] border border-[#F0F1F3]' onClick={() => navigate("/referrals/details")}>
                                     
                                     <td className='w-[143px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>
                                         <p className='font-sans text-[#333843] font-semibold text-sm'>{item?.id}</p>
@@ -188,13 +193,13 @@ const Dashboard = () => {
                                         <p className='font-sans text-[#333843] font-medium text-sm '>{item?.name}</p>
                                     </td>
                                     <td className='w-[198px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>
-                                        <p className='font-sans text-[#667085] font-normal text-xs '>{item?.email}</p>
+                                        <p className='font-sans text-[#667085] font-normal text-sm '>{item?.email}</p>
                                         
                                     </td>
                                     <td className='w-[168px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>
                                         <p className='font-sans text-[#333843] font-medium text-sm'>{item?.phone}</p>
                                     </td>
-                                    <td className='w-[168px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>
+                                    <td className='w-[168px] h-[56px] text-left cursor-pointer font-sans text-[#333843] p-4 font-medium '>
                                         <p className='font-sans text-[#2D84FF] font-medium text-sm'>{item?.total}</p>
                                     </td>
                                 

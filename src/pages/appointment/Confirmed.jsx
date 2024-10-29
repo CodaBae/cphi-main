@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Tick from "../../assets/svg/tick.svg"
 import Share from "../../assets/svg/share.svg"
 import { FaCalendar } from 'react-icons/fa6'
+import { useNavigate } from 'react-router-dom'
 
 
 const Confirmed = () => {
@@ -51,21 +52,29 @@ const Confirmed = () => {
           alert('Share options are not available on your device.');
         }
       };
+
+      const navigate = useNavigate()
       
+      useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto'; // reset on unmount
+        };
+    }, []); 
 
 
   return (
-    <div className='flex flex-col items-center gap-[34px] mb-10'>
-        <div className='w-[575px] mt-[59px] flex flex-col mx-auto shadow-lg rounded-lg p-[34px]'>
-            <div className='flex flex-col items-center gap-[26px]'>
-                <div className='rounded-full bg-[#23A26D1F] w-[93px] p-[19px] h-[93px]'>
-                    <img src={Tick} alt='Tick' className='w-[53px] h-[53px]' />
+    <div className='flex flex-col items-center gap-[14px] mb-10'>
+        <div className='w-[575px]  flex flex-col mx-auto border border-dashed border-[#2D84FF] rounded-lg p-[34px]'>
+            <div className='flex flex-col items-center gap-[6px]'>
+                <div className='rounded-full bg-[#23A26D1F] flex flex-col items-center w-[53px] p-[10px] h-[53px]'>
+                    <img src={Tick} alt='Tick' className='w-[43px] h-[43px]' />
                 </div>
                 <p className='text-[#474747] font-poppins text-[26px]'>Booking Completed!</p>
             </div>
-            <div className='bg-[#EDEDED] mt-[53px] w-full h-1'></div>
+            <div className='bg-[#EDEDED] mt-[13px] w-full h-1'></div>
 
-            <div className='mt-[53px] flex flex-col gap-[53px]'>
+            <div className='mt-[23px] flex flex-col gap-[13px]'>
                 <div className='flex flex-col gap-[23px]'>
                     <div className='flex items-center justify-between'>
                         <p className='font-poppins text-[#707070] font-bold text-[21px]'>Date</p>
@@ -77,14 +86,14 @@ const Confirmed = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-col gap-[23px]'>
+                <div className='flex flex-col gap-[3px]'>
                     <p className='font-poppins font-bold text-[#707070] text-[21px]'>Location</p>
                     <p className='text-[#707070] font-poppins text-[21px]'>
                         1 Akintunde Cl, off Andoyi Street, Onike, Lagos 100001, Lagos, Nigeria
                     </p>
                 </div>
 
-                <div className='flex flex-col gap-[23px]'>
+                <div className='flex flex-col gap-[3px]'>
                     <p className='font-poppins font-bold text-[#707070] text-[21px]'>Contact Number (Free Call)</p>
                     <p className='text-[#707070] font-poppins text-[21px]'>
                         +234 800 002 2744
@@ -104,7 +113,7 @@ const Confirmed = () => {
 
             <div 
                 className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#FF9000] w-[258px] h-[53px] p-2'
-                onClick={handleShare}
+                onClick={() => navigate("/referral")}
             >
                 <img src={Share} alt='Share'  className='w-[25px] h-[25px] text-[#FFFFFF] '/>
                 <p className='font-mulish font-bold text-[20px] mt-1 text-[#fff]'>Refer A Friend</p>

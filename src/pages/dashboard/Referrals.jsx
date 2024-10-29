@@ -75,7 +75,7 @@ const Referrals = () => {
                 <p className='font-sans text-[18px] font-medium text-[#1C1C1E]'>Referrals</p>
                 <div className='flex items-center gap-3'>
                     <input 
-                        className='w-[290px] h-[40px] outline-[#1EC677] rounded-lg p-2 border border-[#E1E5F3]'
+                        className='w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'
                         type='text'
                         placeholder='Search...'
                         value={search}
@@ -138,7 +138,7 @@ const Referrals = () => {
                                         <p className='font-sans text-[#333843] font-medium text-sm '>{item?.name}</p>
                                     </td>
                                     <td className='w-[198px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>
-                                        <p className='font-sans text-[#667085] font-normal text-xs '>{item?.email}</p>
+                                        <p className='font-sans text-[#667085] font-normal text-sm '>{item?.email}</p>
                                         
                                     </td>
                                     <td className='w-[168px] h-[56px] text-left font-sans text-[#333843] p-4 font-medium '>

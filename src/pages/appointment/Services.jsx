@@ -82,6 +82,10 @@ const Services = () => {
         },
     ]
 
+    const handleService = (value) => {
+        localStorage.setItem("service", value)
+    }
+
 
   return (
     <div className='w-full flex flex-col items-center justify-center gap-[93px]'>
@@ -91,8 +95,8 @@ const Services = () => {
                 data.map((item) => (
                     <div 
                         key={item?.id} 
-                        className='border cursor-pointer border-dashed shadow-xl w-[251px] h-[287px] p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
-                        onClick={() => navigate("/steps")}
+                        className='border cursor-pointer border-dashed hover:shadow-xl w-[251px] h-[287px] p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
+                        onClick={() => {navigate("/steps"), handleService(item?.title)}}
                     >
                         <img src={item?.icon} alt='icon' className='w-[40px] h-[40px]' />
                         <p className='text-[20px] text-[#14183E] font-medium text-center font-ubuntu text-[#14183E]'>{item?.title}</p>

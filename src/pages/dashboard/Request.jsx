@@ -14,7 +14,7 @@ const Request = ({ handleClose }) => {
         </div>
 
         <div className='flex flex-col gap-[32px]'>
-            <div className='w-full h-[135px] flex items-center justify-center flex-col gap-2 bg-[#1EC67714]'>
+            <div className='w-full h-[135px] flex items-center justify-center flex-col gap-2 bg-[#2D84FF17]'>
                 <p className='font-sans font-medium text-[#757575] text-base'>Total Number Of Referral </p>
                 <p className='font-sans text-[#1C1C1C] font-bold text-[24px]'>100</p>
             </div>
@@ -31,6 +31,7 @@ const Request = ({ handleClose }) => {
                 <button
                     className='flex items-center justify-center gap-2 w-full rounded-lg h-[45px] p-2 bg-[#2D84FF]'
                     type='submit'
+                    onClick={handleClose}
                 >
                     <p className='text-[#fff] font-sans font-semibold text-sm'>Request Reward</p>
                 </button>
