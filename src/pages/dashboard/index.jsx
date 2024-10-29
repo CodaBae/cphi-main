@@ -105,13 +105,13 @@ const Dashboard = () => {
             </div>
             <div className='w-[336px] rounded-lg h-[167px] border border-[#E0E2E7] flex flex-col py-[11px] px-5'>
                 <div className='flex items-center justify-between'>
-                    <p className='font-sans text-sm text-[#817F9B]'>Total Products</p>
+                    <p className='font-sans text-sm text-[#817F9B]'>Total Referrals</p>
                     <div className='w-[44px] h-[44px] rounded-lg bg-[#5856D61A] p-2 flex items-center justify-center'>
                         <img src={Activity} alt='Activity' className='w-5 h-5' />
                     </div>
                 </div>
                 <div className='flex flex-col mt-3 gap-5'>
-                    <p className='font-sans text-[#1C1C1C] text-[30px] font-semibold'>263k</p>
+                    <p className='font-sans text-[#1C1C1C] text-[30px] font-semibold'>23</p>
                 </div>
             </div>
         </div>
