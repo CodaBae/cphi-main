@@ -53,7 +53,7 @@ const Booking = () => {
   };
 
   return (
-    <div className="p-4 mt-[59px]">
+    <div className="p-4 mt-[59px] w-11/12 lg:w-auto ">
       <Formik
         initialValues={{ location: selectedLocation, date: selectedDate, time: selectedTime }}
         onSubmit={(values) => {
@@ -63,7 +63,7 @@ const Booking = () => {
         }}
       >
         {({ setFieldValue, isValid }) => (
-          <Form>
+          <Form className='w-full'>
             <div className="mb-4">
               <label className="block text-base font-mulish font-semibold text-[#333333]">
                 Location <span className="text-RED-_100">*</span>
@@ -108,7 +108,7 @@ const Booking = () => {
               </label>
               <div className="flex items-center space-x-4 mt-2 bg-[#F2F2F2] rounded-md p-2 h-[51px]">
     
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 ">
                   <FiCalendar className="text-gray-600" />
                   <DatePicker
                     selected={selectedDate}
@@ -118,7 +118,7 @@ const Booking = () => {
                     }}
                     dateFormat="EEE MM/dd"
                     placeholderText="Select Date"
-                    className="bg-[#F2F2F2] font-roboto text-[#333333] outline-none"
+                    className="bg-[#F2F2F2] font-roboto text-[#333333] w-10/12 lg:w-full outline-none"
                   />
                 </div>
 
@@ -140,7 +140,7 @@ const Booking = () => {
                     timeCaption="Time"
                     dateFormat="HH:mm"
                     placeholderText="Select Time"
-                    className="bg-[#F2F2F2] font-roboto text-[#333333]  outline-none"
+                    className="bg-[#F2F2F2] font-roboto text-[#333333] w-10/12 lg:w-full outline-none"
                   />
                 </div>
               </div>

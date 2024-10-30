@@ -117,7 +117,7 @@ const Register = () => {
                         values,
                     }) => (
                         <Form onSubmit={handleSubmit} className="flex justify-center ">
-                            <div className="flex flex-col  w-[520px] gap-6">
+                            <div className="flex flex-col w-11/12  lg:w-[520px] gap-6">
 
                                 <div>
                                     <Listbox 

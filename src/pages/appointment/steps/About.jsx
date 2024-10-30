@@ -51,9 +51,9 @@ const About = ({ handleSteps }) => {
                     values,
                 }) => (
                     <Form onSubmit={handleSubmit} className="flex justify-center ">
-                        <div className="flex flex-col  w-[504px] gap-6">
+                        <div className="flex flex-col w-11/12  lg:w-[504px] gap-6">
 
-                            <div className='flex flex-col gap-[6px]  w-full'>
+                            <div className='flex flex-col gap-[6px] w-full'>
                                 <label className='font-mulish font-semibold text-[#333333] text-base'>Tell us your story. Why do you think you need an {service}?</label>
                                 <textarea
                                     name="story"
@@ -116,7 +116,7 @@ const About = ({ handleSteps }) => {
                             
 
                             <button
-                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center rounded-[14px] justify-center mt-[32px] h-[51px] text-center`}
+                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center rounded-[14px] justify-center mt-[32px] h-[43px] lg:h-[51px] text-center`}
                                 type="submit"
                                 disabled={!isValid}
                             >

@@ -75,7 +75,7 @@ const Confirmed = () => {
 
   return (
     <div className='flex flex-col items-center gap-[14px] mb-10'>
-        <div className='w-[575px]  flex flex-col mx-auto border border-dashed border-[#2D84FF] rounded-lg p-[34px]'>
+        <div className='w-11/12 lg:w-[575px]  flex flex-col mx-auto border border-dashed border-[#2D84FF] rounded-lg p-[34px]'>
             <div className='flex flex-col items-center gap-[6px]'>
                 <div className='rounded-full bg-[#23A26D1F] flex flex-col items-center w-[53px] p-[10px] h-[53px]'>
                     <img src={Tick} alt='Tick' className='w-[43px] h-[43px]' />
@@ -112,21 +112,21 @@ const Confirmed = () => {
             </div>
         </div>
 
-        <div className='flex items-center gap-[32px]'>
+        <div className='flex items-center gap-[32px] justify-center w-11/12 lg:w-auto'>
             <div
                 onClick={generateICSFile}
-                className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#2D7FF9] w-[258px] h-[53px] p-2'
+                className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#2D7FF9]  h-[45px] lg:w-[258px] lg:h-[53px] p-2'
             >
-                <FaCalendar className='w-[25px] h-[25px] text-[#FFFFFF]' />
-                <p className='font-mulish font-bold text-[20px] mt-1 text-[#fff]'>Add to Calendar</p>
+                <FaCalendar className='w-4 h-4 lg:w-[25px] lg:h-[25px] text-[#FFFFFF]' />
+                <p className='font-mulish font-bold text-sm lg:text-[20px] lg:mt-1 text-[#fff]'>Add to Calendar</p>
             </div>
 
             <div 
-                className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#FF9000] w-[258px] h-[53px] p-2'
-                onClick={() => navigate(`/referral${referrerCode}`)}
+                className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#FF9000] lg:w-[258px] h-[45px] lg:h-[53px] p-2'
+                onClick={() => navigate(`/referral`)} //${referrerCode}
             >
-                <img src={Share} alt='Share'  className='w-[25px] h-[25px] text-[#FFFFFF] '/>
-                <p className='font-mulish font-bold text-[20px] mt-1 text-[#fff]'>Refer A Friend</p>
+                <img src={Share} alt='Share'  className='w-4 h-4 lg:w-[25px] lg:h-[25px] text-[#FFFFFF] '/>
+                <p className='font-mulish font-bold text-sm lg:text-[20px] lg:mt-1 text-[#fff]'>Refer A Friend</p>
             </div>
 
         </div>

@@ -10,7 +10,6 @@ import * as XLSX from 'xlsx';
 
 import { db } from '../../firebase-config'
 
-// import QrCode from "../../assets/png/qr_code.png"
 import Logo from "../../assets/svg/logo_small.svg"
 import Activity from "../../assets/svg/activity.svg"
 
@@ -66,10 +65,8 @@ const Dashboard = () => {
         }
     }, [emailOrPhone]);
 
-    // Generate URL with referrer code
-    const referrerUrl = `https://cphi-main.vercel.app/${userDetails.referrerCode || ''}`; //Replace with website url
+    const referrerUrl = `https://cphi-main.vercel.app/${userDetails.referrerCode || ''}`; 
 
-    // Handle QR code download
     const downloadQRCode = () => {
         const canvas = qrRef.current.querySelector('canvas');
         const imageUrl = canvas.toDataURL("image/png");
@@ -148,9 +145,9 @@ const Dashboard = () => {
 
 
   return (
-    <div className='w-full mt-[10px]'>
-        <div className='flex items-center gap-[10px]'>
-            <div className='w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-[11px] px-5'>
+    <div className='w-full mt-2 '>
+        <div  className='flex flex-col sm:flex-row items-center gap-4 sm:gap-10'> {/*  className='flex items-center gap-[10px]' */}
+            <div className='w-full sm:w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-3 px-5' > {/* className='w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-[11px] px-5' */}
                 <div className='flex items-center cursor-pointer justify-between' onClick={() => copyToClipboard(referrerUrl)}>
                     <p className='font-sans text-sm text-[#424242]'>{referrerUrl}</p>
                     <BiSolidCopy className='text-[#2D84FF] w-5 h-5' />
@@ -165,7 +162,7 @@ const Dashboard = () => {
                 </div>
                  
             </div>
-            <div className='w-[336px] rounded-lg h-[167px] border border-[#E0E2E7] flex flex-col py-[11px] px-5'>
+            <div className='w-full sm:w-[336px] rounded-lg h-[167px] border border-[#E0E2E7] flex flex-col py-3 px-5'> {/* className='w-[336px] rounded-lg  border border-[#E0E2E7] flex flex-col py-[11px] px-5' */}
                 <div className='flex items-center justify-between'>
                     <p className='font-sans text-sm text-[#817F9B]'>Total Referrals</p>
                     <div className='w-[44px] h-[44px] rounded-lg bg-[#5856D61A] p-2 flex items-center justify-center'>
@@ -179,11 +176,11 @@ const Dashboard = () => {
         </div>
 
         <div className='w-full mt-10'>
-            <div className='flex items-center justify-between px-5'>
+            <div className='flex flex-col sm:flex-row items-center justify-between px-5 gap-3'> {/*  className='flex items-center justify-between px-5' */}
                 <p className='font-sans text-[18px] font-medium text-[#1C1C1E]'>Referrals</p>
-                <div className='flex items-center gap-3'>
+                <div className='flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto'> {/* className='flex items-center gap-3' */}
                     <input 
-                        className='w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'
+                        className='w-full sm:w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'     //'w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'
                         type='text'
                         placeholder='Search...'
                         value={search}
@@ -192,7 +189,7 @@ const Dashboard = () => {
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"
+                        className="w-full sm:w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"  //"w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"
                     >
                         <option value="">Filter</option>
                         <option value="pending">Pending</option>
@@ -204,20 +201,20 @@ const Dashboard = () => {
                         <p className='text-xs font-semibold font-sans text-[#7A8699]'>Filter</p>
                     </div> */}
                     <div 
-                        className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'
+                        className='w-full lg:w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'
                         onClick={exportExcel}
                     >
                         <TbDownload className='text-base text-[#6B788E]' />
                         <p className='text-xs font-semibold font-sans text-[#7A8699]'>Export</p>
                     </div>
-                    <div onClick={() => setOpenRequest(true)} className='w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col justify-center items-center p-3'>
+                    <div onClick={() => setOpenRequest(true)} className='w-full lg:w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col justify-center items-center p-3'>
                         <p className='text-xs font-semibold text-center font-sans text-[#fff]'>Request Reward</p>
                     </div>
                     
                 </div>
             </div>
 
-            <div className='mt-5 p-5 w-full'>
+            <div className='mt-5 px-0 lg:px-5 py-5 w-full overflow-x-auto'>
                 <table>
                     <thead>
                         <tr className='w-full border rounded-t-xl border-[#F0F1F3] '>
@@ -246,13 +243,10 @@ const Dashboard = () => {
                             {/* <th className='w-[157px] h-[18px] text-left font-sans text-[#333843] p-4 font-medium '>
                                 <p className='text-sm text-[#333843] font-sans'>Total</p>
                             </th> */}
-                            {/*  <th className='w-[169px] h-[18px] text-left text-sm font-sans text-[#333843] p-4 font-medium '>
-                                Action
-                            </th> */}
                         </tr>
                     </thead>
                     <tbody className=''>
-                        { currentReferrals?.length > 0 ?
+                        {currentReferrals?.length > 0 ?
                             currentReferrals?.map((item, index) => (
                                 <tr key={index} className='w-full mt-[18px] border border-[#F0F1F3]'> {/*  onClick={() => navigate("/referrals/details", { state: item })} */}
                                     
@@ -276,9 +270,7 @@ const Dashboard = () => {
                                             <p className={`${item?.status === "Completed" ? "text-[#0D894F]" : item?.status === "No Show" ? "text-[#F4003D]" : "text-[#E46A11]"} font-sans font-semibold text-center text-sm capitalize`}>{item?.status}</p>
                                         </div>
                                     </td>
-                                
-                                   
-            
+                        
                                 </tr>
             
                             )) : (
@@ -286,7 +278,6 @@ const Dashboard = () => {
                                     <td colSpan="8" className="relative">
                                         <div className='absolute inset-0 flex items-center justify-center'>
                                             <div className='flex flex-col gap-2 items-center'>
-                                                {/* <img src={Empty} alt='empty' className='w-[150px] h-[150px]'/> */}
                                                 <p className='text-[#0C1322] font-medium text-[20px] font-inter'>No Referrers</p>
                                             </div>
                                         </div>
@@ -297,8 +288,26 @@ const Dashboard = () => {
                     </tbody>
                 </table>
             </div>
-    
-            <div className='w-full flex items-center justify-between p-5'>
+            
+            <div className='w-full flex flex-col sm:flex-row items-center justify-between p-5'>
+                    <div className='bg-[#FAFAFE] w-full sm:w-[136px] h-[40px] flex items-center justify-center'>
+                        <p className='font-sans text-[#667085] text-base'>Page {currentPage} of {totalPages}</p>
+                    </div>
+                    <div className='flex h-[34px] justify-center gap-2 items-center mt-4 sm:mt-0'>
+                        <div onClick={() => handlePrevPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}>
+                            <IoIosArrowBack className='text-[#667085]' />
+                        </div>
+                        {[...Array(totalPages)].map((_, index) => (
+                            <div key={index} onClick={() => setCurrentPage(index + 1)} className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === index + 1 ? 'bg-[#FAFAFE] text-[#000]' : 'hover:bg-[#FAFAFE]'}`}>
+                                {index + 1}
+                            </div>
+                        ))}
+                        <div onClick={() => handleNextPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}>
+                            <IoIosArrowForward className='text-[#667085]' />
+                        </div>
+                    </div>
+                </div>
+            {/* <div className='w-full flex items-center justify-between p-5'>
                 <div className='bg-[#FAFAFE] w-[136px] h-[40px] flex items-center justify-center'>
                     <p className='font-sans text-[#667085] text-base'>Page 1 of 1</p>
                 </div>
@@ -333,7 +342,7 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-            </div>
+            </div> */}
 
         </div>
         <ModalPop isOpen={openRequest}>

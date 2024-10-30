@@ -44,7 +44,7 @@ const Profile = ({ handleSteps }) => {
                     values,
                 }) => (
                     <Form onSubmit={handleSubmit} className="flex justify-center ">
-                        <div className="flex flex-col  w-[504px] gap-6">
+                        <div className="flex flex-col  lg:w-[504px] gap-6">
 
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-1.5 items-center'>
@@ -103,7 +103,7 @@ const Profile = ({ handleSteps }) => {
                             
 
                             <button
-                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center cursor-pointer rounded-[14px] justify-center mt-[22px] h-[51px] text-center`}
+                                className={`${isValid ? "bg-[#2D7FF9]" : "bg-[#BABABA]"} w-full flex items-center cursor-pointer rounded-[14px] justify-center mt-[22px] h-[43px] lg:h-[51px] text-center`}
                                 type="submit"
                                 disabled={!isValid}
                             >

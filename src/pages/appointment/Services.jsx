@@ -89,18 +89,18 @@ const Services = () => {
 
   return (
     <div className='w-full flex flex-col items-center justify-center gap-[93px]'>
-        <p className='font-sans text-[#000000] text-[52px] font-medium'>Our Services</p>
-        <div className='grid grid-cols-4 mx-auto w-12/12 gap-[26px] mb-10'>
+        <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+        <div className='grid grid-cols-2 lg:grid-cols-4 mx-auto w-12/12 gap-[26px] mb-10'>
             {
                 data.map((item) => (
                     <div 
                         key={item?.id} 
-                        className='border cursor-pointer border-dashed hover:shadow-xl w-[251px] h-[287px] p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
+                        className='border cursor-pointer border-dashed hover:shadow-xl w-[150px] h-[250px] lg:w-[251px] lg:h-[287px] p-4 lg:p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
                         onClick={() => {navigate("/steps"), handleService(item?.title)}}
                     >
                         <img src={item?.icon} alt='icon' className='w-[40px] h-[40px]' />
-                        <p className='text-[20px] text-[#14183E] font-medium text-center font-ubuntu text-[#14183E]'>{item?.title}</p>
-                        <p className='text-[15px] font-ubuntu text-[#747582] overflow-y-auto font-normal text-center'>{item?.description}</p>
+                        <p className='text-sm lg:text-[20px] text-[#14183E] font-medium text-center font-ubuntu text-[#14183E]'>{item?.title}</p>
+                        <p className='text-xs lg:text-[15px] font-ubuntu text-[#747582] overflow-y-auto font-normal text-center'>{item?.description}</p>
                     </div>
                 ))
             }
