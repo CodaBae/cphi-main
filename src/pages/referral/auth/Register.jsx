@@ -4,12 +4,14 @@ import zxcvbn from 'zxcvbn'
 import { BsEye, BsEyeSlash } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from "yup"
-
 import { toast } from 'react-toastify'
-
 import { CgSpinner } from 'react-icons/cg'
 import { Listbox } from '@headlessui/react'
 import { IoIosArrowDown } from 'react-icons/io'
+import { doc, setDoc } from 'firebase/firestore';
+
+import { db } from '../../../firebase-config'
+
 
 const types = ["Select Type", "Individual", "Organization"];
 
@@ -26,7 +28,7 @@ const Register = () => {
         setShowPassword(!showPassword);
     };
 
-    const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+    // const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
 
     const navigate = useNavigate()
 
@@ -47,61 +49,36 @@ const Register = () => {
     const formValidationSchema = Yup.object().shape({
         type: Yup.string().required("Type is required"),
         fullName: Yup.string().required("Full Name is Required"),
-        emailOrPhone: Yup.string().email().required("Email or Phone is required"),
+        emailOrPhone: Yup.string().required("Email or Phone is required"),
         password: Yup.string().required("Password is required"),
-        checked: Yup.boolean().required("Checkbox is required")
+        checked: Yup.boolean().oneOf([true], 'Terms and conditions must be accepted'),
     })
 
-    // const mailgunApi = import.meta.env.VITE_APP_MAILGUN_API_KEY
+    const generateReferrerCode = () => {
+        return Math.random().toString(36).substring(2, 10).toUpperCase(); // 8-character code
+    };
 
 
-    // Function to send OTP using Mailgun (or any other email service)
-    // const sendOtpEmail = async (email) => {
-
-    //     const otp = generateOTP();
-    //     // const expiresAt = Timestamp.now().toMillis() + 5 * 60 * 1000; // 5 minutes expiration
-
-    //     // Store OTP and expiration time in Firestore
-    //     await setDoc(doc(db, 'otps', email), {
-    //         otp,
-    //         // expiresAt,
-    //     });
-
-    //     const templateParams = {
-    //         to_email: email,      // Recipient's email
-    //         otp_code: otp,        // Generated OTP
-    //       };
-        
-    //       try {
-    //         // Use EmailJS to send the email
-    //         const result = await emailjs.send(
-    //           import.meta.env.VITE_EMAILJS_SERVICE_ID,    // EmailJS Service ID
-    //           import.meta.env.VITE_EMAILJS_TEMPLATE_ID,   // EmailJS Template ID
-    //           templateParams,
-    //           import.meta.env.VITE_EMAILJS_USER_ID        // EmailJS User ID
-    //         );
-
-    //         console.log(result, "dodo")
-        
-    //         console.log('OTP sent successfully via EmailJS:', result.text);
-    //         toast.success('OTP sent successfully.', {
-    //           position: 'top-right',
-    //           autoClose: 5000,
-    //           closeOnClick: true,
-    //         });
-    //       } catch (error) {
-    //         console.error('Error sending OTP via EmailJS:', error);
-    //         toast.error('Failed to send OTP. Please try again.', {
-    //           position: 'top-right',
-    //           autoClose: 5000,
-    //           closeOnClick: true,
-    //         });
-    //       }
-    //   };
-
-    const submitForm = (values) => {
-       navigate("/dashboard")
-    }
+    const submitForm = async (values) => {
+        setLoading(true);
+        try {
+            const referrerCode = generateReferrerCode();
+            await setDoc(doc(db, 'users', values.emailOrPhone), {
+                ...values,
+                type: selectedType,
+                referrerCode,
+                createdAt: new Date(),
+            });
+            toast.success('Account created successfully!');
+            localStorage.setItem("emailOrPhone", values?.emailOrPhone)
+            navigate('/dashboard');
+        } catch (error) {
+            toast.error('Failed to create account. Try again.');
+            console.error('Error adding document: ', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
   return (
@@ -121,7 +98,7 @@ const Register = () => {
                         password: "",
                         checked: false
                     }}
-                        // validationSchema={formValidationSchema}
+                        validationSchema={formValidationSchema}
                         onSubmit={(values, action) => {
                         window.scrollTo(0, 0);
                         console.log(values, "market")
@@ -287,7 +264,7 @@ const Register = () => {
                                 <button
                                     className={`${isValid ? "bg-[#2D84FF]" : "bg-[#BABABA]"} w-full font-poppins flex items-center rounded-[6px] justify-center mt-[32px] h-[46px] text-base text-center`}
                                     type="submit"
-                                    disabled={!isValid}
+                                    disabled={!isValid || loading}
                                 >
                                     <p className='text-[#fff] text-sm font-poppins font-semibold'>{loading ? <CgSpinner className=" animate-spin text-lg " /> : 'Create An Account'}</p>
                                     

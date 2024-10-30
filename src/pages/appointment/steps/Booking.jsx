@@ -7,10 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import { CgSpinner } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { addDoc, collection, doc } from 'firebase/firestore';
 
-const locations = ["Lagos", "Port Harcourt"];
+import { db } from '../../../firebase-config';
 
-const Booking = ({ handleSteps }) => {
+const locations = ["Select Location", "Lagos", "Port Harcourt"];
+
+const Booking = () => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -18,26 +22,59 @@ const Booking = ({ handleSteps }) => {
 
   const navigate = useNavigate()
 
+  const referrerCode = localStorage.getItem("referrerCode")
+  const about = JSON.parse(localStorage.getItem("about"))
+  const profile = JSON.parse(localStorage.getItem("profile"))
+
+  const submitForm = async (values) => {
+    setLoading(true); 
+    const data = {
+        location: selectedLocation === "Lagos" ? "1 Akintunde Cl, off Andoyi Street, Onike, Lagos 100001, Lagos, Nigeria" : "15 Omerelu Street, New GRA, Port Harcourt 500272, Rivers, Nigeria",
+        date: new Date(values?.date).toLocaleDateString(),
+        time: new Date(values?.time).toLocaleTimeString(),
+        referrerCode,
+        about,
+        profile, 
+        status: "pending"
+    };
+
+    try {
+        const docRef = await addDoc(collection(db, "referrals"), data);
+        localStorage.setItem("client", JSON.stringify(data))
+        navigate("/confirmed"); 
+
+        console.log("Document ID:", docRef.id); 
+    } catch (error) {
+        console.error("Error submitting form:", error);
+        toast.error("There was an error submitting the form. Please try again."); 
+    } finally {
+        setLoading(false); 
+    }
+  };
+
   return (
     <div className="p-4 mt-[59px]">
       <Formik
         initialValues={{ location: selectedLocation, date: selectedDate, time: selectedTime }}
         onSubmit={(values) => {
           console.log(values);
-          navigate("/confirmed")
+          submitForm(values)
+         
         }}
       >
         {({ setFieldValue, isValid }) => (
           <Form>
-            {/* Location Dropdown */}
             <div className="mb-4">
               <label className="block text-base font-mulish font-semibold text-[#333333]">
                 Location <span className="text-RED-_100">*</span>
               </label>
-              <Listbox value={selectedLocation} onChange={(value) => {
-                setSelectedLocation(value);
-                setFieldValue("location", value);
-              }}>
+              <Listbox 
+                value={selectedLocation} 
+                onChange={(value) => {
+                  setSelectedLocation(value);
+                  setFieldValue("location", value);
+                }}
+              >
                 <div className="relative mt-1">
                   <Listbox.Button className="w-full h-[51px] font-mulish text-[#424242] cursor-pointer rounded-md bg-[#F2F2F2] px-4 py-2 text-left">
                     <div className='flex items-center justify-between'>
@@ -65,13 +102,12 @@ const Booking = ({ handleSteps }) => {
               </Listbox>
             </div>
 
-            {/* Date and Time Picker */}
             <div className="mb-4 mt-[43px]">
               <label className="block text-base font-mulish font-semibold text-[#333333]">
                 Select Appointment Time <span className="text-RED-_100">*</span>
               </label>
               <div className="flex items-center space-x-4 mt-2 bg-[#F2F2F2] rounded-md p-2 h-[51px]">
-                {/* Date Picker */}
+    
                 <div className="flex items-center space-x-2">
                   <FiCalendar className="text-gray-600" />
                   <DatePicker
@@ -86,10 +122,10 @@ const Booking = ({ handleSteps }) => {
                   />
                 </div>
 
-                {/* Divider */}
+          
                 <span className="text-gray-400">|</span>
 
-                {/* Time Picker */}
+         
                 <div className="flex items-center space-x-2">
                   <FiClock className="text-gray-600" />
                   <DatePicker

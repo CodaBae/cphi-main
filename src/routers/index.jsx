@@ -26,8 +26,8 @@ const Routers = () => {
             <Route path='/referral/change-password' element={<ChangePassword />} />
             <Route path='/referral/reset-password' element={<ResetPassword />} />
         </Route>
-        <Route path='/' element={<Landing />} />
-        <Route path='/referral' element={<ReferralLanding />} />
+        <Route path='/:id' element={<Landing />} />
+        <Route path='/referral' element={<ReferralLanding />} /> {/* /:id */}
         <Route element={<DashboardLayout />}>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/referrals/details' element={<Referrals />} />

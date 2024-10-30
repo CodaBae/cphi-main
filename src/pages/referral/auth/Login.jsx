@@ -6,6 +6,9 @@ import * as Yup from "yup"
 import { useNavigate } from 'react-router-dom';
 
 import Lock from "../../../assets/svg/lock.svg"
+import { toast } from 'react-toastify';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../../../firebase-config';
 
 const Login = () => {
     const [loading, setLoading] = useState(false)
@@ -29,9 +32,37 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
 
-    const submitForm = () => {
-        navigate("/dashboard")
-    }
+    const submitForm = async (values) => {
+        setLoading(true);
+        try {
+            const usersRef = collection(db, "users");
+            const userQuery = query(usersRef, where("emailOrPhone", "==", values.emailOrPhone));
+            const querySnapshot = await getDocs(userQuery);
+    
+            if (querySnapshot.empty) {
+                // User doesn't exist
+                toast.error("User not found! Please check your email/phone.");
+            } else {
+                // Check if password matches
+                const userData = querySnapshot.docs[0].data();
+                if (userData.password === values.password) {
+                    // Successful login, navigate to dashboard
+                    localStorage.setItem("emailOrPhone", values.emailOrPhone);
+                    toast.success("Login Success");
+                    navigate("/dashboard");
+                } else {
+                    // Incorrect password
+                    toast.error("Incorrect password. Please try again.");
+                }
+            }
+        } catch (error) {
+            console.error("Error checking user:", error);
+            alert("An error occurred while trying to log in. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
+    };
+    
 
   return (
     <div className='bg-[#fff] w-full flex flex-col  h-screen'>

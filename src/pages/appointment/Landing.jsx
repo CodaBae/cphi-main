@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Testing from "../../assets/png/testing.png"
 import Logo from "../../assets/svg/logo_big.svg"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Landing = () => {
 
+    const { id } = useParams()
     const navigate = useNavigate()
+    
+    console.log(id, "samba")
+    const setId = () => {
+        localStorage.setItem("referrerCode", id)
+    }
+
+    useEffect(() => {
+      if (id) {
+        setId()
+      }
+    }, [id])
+
 
   return (
     <div className='flex w-full h-screen overflow-hidden'>

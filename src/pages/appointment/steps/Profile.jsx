@@ -5,7 +5,14 @@ import { CgSpinner } from 'react-icons/cg';
 const Profile = ({ handleSteps }) => {
     const [loading, setLoading] = useState(false)
 
-    const submitForm = () => {
+    const submitForm = (values) => {
+        const data = {
+            fullName: values?.checked ? "Anonymous" : values?.fullName,
+            emailOrphone: values?.emailOrphone
+        }
+        // console.log(data, "skip")
+        // return
+        localStorage.setItem("profile", JSON.stringify(data))
         handleSteps(2)
     }
 

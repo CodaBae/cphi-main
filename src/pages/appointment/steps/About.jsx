@@ -5,11 +5,22 @@ import { CgSpinner } from 'react-icons/cg';
 const About = ({ handleSteps }) => {
     const [loading, setLoading] = useState(false)
 
-    const submitForm = () => {
+    const service = localStorage.getItem("service")
+
+    const submitForm = (values) => {
+        const data = {
+            story: values?.story,
+            services: [
+                values?.consultationCheck && "Consultation" ,
+                values?.checked && service,
+                values?.treatmentCheck && "Treatment",
+            ]
+        }
+        localStorage.setItem("about", JSON.stringify(data))
         handleSteps(3)
     }
 
-    const service = localStorage.getItem("service")
+  
 
   return (
    <div className='mt-[59px]'>

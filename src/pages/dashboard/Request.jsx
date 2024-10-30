@@ -2,7 +2,7 @@ import React, { useState, Fragment, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
 
-const Request = ({ handleClose }) => {
+const Request = ({ handleClose, data }) => {
 
 
 
@@ -16,7 +16,7 @@ const Request = ({ handleClose }) => {
         <div className='flex flex-col gap-[32px]'>
             <div className='w-full h-[135px] flex items-center justify-center flex-col gap-2 bg-[#2D84FF17]'>
                 <p className='font-sans font-medium text-[#757575] text-base'>Total Number Of Referral </p>
-                <p className='font-sans text-[#1C1C1C] font-bold text-[24px]'>100</p>
+                <p className='font-sans text-[#1C1C1C] font-bold text-[24px]'>{data?.length}</p>
             </div>
 
             <div className='w-full flex flex-col gap-[32px]'>

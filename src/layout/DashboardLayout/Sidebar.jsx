@@ -12,6 +12,11 @@ const Sidebar = () => {
 
   const navigate = useNavigate()
 
+  const handleLogout = () => {
+      localStorage.clear()
+      navigate("/referral/login")
+  }
+
   return (
     <div className='border w-full flex flex-col items-center  py-[18px] px-[24px] h-full border-l-0 overflow-y-auto overflow-x-hidden border-t-0 border-r-[#E5E5EA]'>
       <div className='flex flex-col -ml-[10%] gap-1'>
@@ -23,7 +28,10 @@ const Sidebar = () => {
       </div>
       <hr />
 
-      <div className={`flex items-center gap-3  p-2 w-[156px] cursor-pointer mt-10 rounded-lg h-auto`} onClick={() => navigate("/referral/login")}>
+      <div 
+        className={`flex items-center gap-3  p-2 w-[156px] cursor-pointer mt-10 rounded-lg h-auto`} 
+        onClick={handleLogout}
+      >
           <TbLogout className={`text-RED-_100 w-5 h-5 `}/>
           <p className={`font-sans text-[#575757]  font-medium text-sm`}>Logout</p>
       </div>
