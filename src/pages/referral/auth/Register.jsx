@@ -186,9 +186,7 @@ const Register = () => {
                                     ) : null}
                                 </div>
                                 
-                                <div style={{
-                                    minHeight: "60px"
-                                }}>
+                                <div className='gap-2 flex flex-col'>
                                     <div className='flex flex-col w-full'>
                                         <div className='relative'>
                                             <input
@@ -220,22 +218,22 @@ const Register = () => {
                                         </div>
                                         ) : null}
                                     </div>
-                                </div>
-                                <div className={`${values?.password ? "mb-2" : "hidden"}`}>
-                                    <p className={`text-sm  font-poppins ${passwordStrength === 0 ? 'text-red-500' : passwordStrength === 1 ? 'text-orange-500' : passwordStrength === 2 ? 'text-yellow-500' : passwordStrength === 3 ? 'text-green-400' : 'text-green-600'}`}>
-                                        {passwordStrength === 0 && "Password Strength: Weak"}
-                                        {passwordStrength === 1 && "Password Strength: Fair"}
-                                        {passwordStrength === 2 && "Password Strength: Good"}
-                                        {passwordStrength === 3 && "Password Strength: Strong"}
-                                        {passwordStrength === 4 && "Password Strength: Very Strong"}
-                                    </p>
-                                    <div className="w-full h-2 bg-[#E5E5EA] rounded-lg">
-                                        <div
-                                            className={`h-full rounded-lg ${passwordStrength === 0 ? 'bg-[#f00]' : passwordStrength === 1 ? 'bg-[#0ff]' : passwordStrength === 2 ? 'bg-[#ff0]' : passwordStrength === 3 ? 'bg-[#34C759CC]' : 'bg-[#34C759CC]'}`}
-                                            style={{ width: `${(passwordStrength + 1) * 20}%` }} 
-                                        />
+                                    <div className={`${values?.password ? "mb-2" : "hidden"}`}>
+                                        <p className={`text-sm  font-poppins ${passwordStrength === 0 ? 'text-red-500' : passwordStrength === 1 ? 'text-orange-500' : passwordStrength === 2 ? 'text-yellow-500' : passwordStrength === 3 ? 'text-green-400' : 'text-green-600'}`}>
+                                            {passwordStrength === 0 && "Password Strength: Weak"}
+                                            {passwordStrength === 1 && "Password Strength: Fair"}
+                                            {passwordStrength === 2 && "Password Strength: Good"}
+                                            {passwordStrength === 3 && "Password Strength: Strong"}
+                                            {passwordStrength === 4 && "Password Strength: Very Strong"}
+                                        </p>
+                                        <div className="w-full h-2 bg-[#E5E5EA] rounded-lg">
+                                            <div
+                                                className={`h-full rounded-lg ${passwordStrength === 0 ? 'bg-[#f00]' : passwordStrength === 1 ? 'bg-[#0ff]' : passwordStrength === 2 ? 'bg-[#ff0]' : passwordStrength === 3 ? 'bg-[#34C759CC]' : 'bg-[#34C759CC]'}`}
+                                                style={{ width: `${(passwordStrength + 1) * 20}%` }} 
+                                            />
+                                        </div>
+                                    
                                     </div>
-                                
                                 </div>
                             
                                 
