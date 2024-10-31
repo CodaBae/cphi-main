@@ -1,8 +1,34 @@
 import React, { useState, Fragment, useEffect } from 'react'
+import { addDoc, collection } from 'firebase/firestore'
 import { AiOutlineClose } from 'react-icons/ai'
+import { CgSpinner } from 'react-icons/cg'
+import { toast } from 'react-toastify'
+import { db } from '../../firebase-config'
 
 
-const Request = ({ handleClose, data }) => {
+const Request = ({ handleClose, data, userDetails }) => {
+    const [loading, setLoading] = useState(false)
+
+    console.log(data, "simple")
+    console.log(userDetails, "userDetails")
+
+    const submitForm = async () => {
+        setLoading(true);
+        try {
+            await addDoc(collection(db, 'requests'), {
+                userDetails,
+                requestedAt: new Date(),
+            });
+            toast.success('Reward Request Submitted Successfully!');
+            handleClose();
+        } catch (error) {
+            toast.error('Error Submitting Reward Request. Try again.');
+            console.error('Error Submitting Reward Request: ', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    
 
 
 
@@ -31,9 +57,9 @@ const Request = ({ handleClose, data }) => {
                 <button
                     className='flex items-center justify-center gap-2 w-full rounded-lg h-[45px] p-2 bg-[#2D84FF]'
                     type='submit'
-                    onClick={handleClose}
+                    onClick={submitForm}
                 >
-                    <p className='text-[#fff] font-sans font-semibold text-sm'>Request Reward</p>
+                    <p className='text-[#fff] font-sans font-semibold text-sm'>{loading ? <CgSpinner className=" animate-spin text-lg " /> : 'Request Reward'}</p>
                 </button>
             </div>
         </div>

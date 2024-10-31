@@ -207,7 +207,7 @@ const Dashboard = () => {
                         <TbDownload className='text-base text-[#6B788E]' />
                         <p className='text-xs font-semibold font-sans text-[#7A8699]'>Export</p>
                     </div>
-                    <div onClick={() => setOpenRequest(true)} className='w-full lg:w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col justify-center items-center p-3'>
+                    <div onClick={() => {setOpenRequest(true), setUserData(userDetails)}} className='w-full lg:w-[141px] h-[45px] cursor-pointer bg-[#2D84FF] gap-1 rounded-lg flex flex-col justify-center items-center p-3'>
                         <p className='text-xs font-semibold text-center font-sans text-[#fff]'>Request Reward</p>
                     </div>
                     
@@ -349,6 +349,7 @@ const Dashboard = () => {
             <Request 
                 handleClose={() => setOpenRequest(false)}
                 data={referrals}
+                userDetails={userDetails}
             />
         </ModalPop>
     </div>
