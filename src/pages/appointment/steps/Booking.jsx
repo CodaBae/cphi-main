@@ -29,13 +29,14 @@ const Booking = () => {
   const submitForm = async (values) => {
     setLoading(true); 
     const data = {
-        location: selectedLocation === "Lagos" ? "1 Akintunde Cl, off Andoyi Street, Onike, Lagos 100001, Lagos, Nigeria" : "15 Omerelu Street, New GRA, Port Harcourt 500272, Rivers, Nigeria",
+        location: selectedLocation,
+        address: selectedLocation === "Lagos" ? "1 Akintunde Cl, off Andoyi Street, Onike, Lagos 100001, Lagos, Nigeria" : "15 Omerelu Street, New GRA, Port Harcourt 500272, Rivers, Nigeria",
         date: new Date(values?.date).toLocaleDateString(),
         time: new Date(values?.time).toLocaleTimeString(),
         referrerCode,
         about,
         profile, 
-        status: "pending"
+        status: "Pending"
     };
 
     try {

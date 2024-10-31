@@ -23,6 +23,7 @@ const Confirmed = () => {
           startDate: `${client?.date}T${client?.time}` || "N/A",
         //   endDate: "2023-02-25T14:22:00",
           location: client?.location || "N/A",
+          address: client?.address || "N/A",
         };
 
         // DTEND:${eventDetails.endDate.replace(/[-:]/g, '')}Z 
@@ -35,6 +36,7 @@ const Confirmed = () => {
           DESCRIPTION:${eventDetails.description}
           DTSTART:${eventDetails.startDate.replace(/[-:]/g, '')}Z
           LOCATION:${eventDetails.location}
+          ADDRESS:${eventDetails.address}
           END:VEVENT
           END:VCALENDAR`
         .trim();
@@ -99,7 +101,7 @@ const Confirmed = () => {
                 <div className='flex flex-col gap-[3px]'>
                     <p className='font-poppins font-bold text-[#707070] text-[21px]'>Location</p>
                     <p className='text-[#707070] font-poppins text-[21px]'>
-                        {client?.location || "N/A"}
+                        {client?.address || "N/A"}
                     </p>
                 </div>
 

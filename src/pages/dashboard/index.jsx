@@ -192,7 +192,7 @@ const Dashboard = () => {
                         className="w-full sm:w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"  //"w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"
                     >
                         <option value="">Filter</option>
-                        <option value="pending">Pending</option>
+                        <option value="Pending">Pending</option>
                         <option value="No Show">No Show</option>
                         <option value="Completed">Completed</option>
                     </select>
@@ -289,7 +289,7 @@ const Dashboard = () => {
                 </table>
             </div>
             
-            <div className='w-full flex flex-col sm:flex-row items-center justify-between p-5'>
+                <div className='w-full flex flex-col sm:flex-row items-center justify-between p-5'>
                     <div className='bg-[#FAFAFE] w-full sm:w-[136px] h-[40px] flex items-center justify-center'>
                         <p className='font-sans text-[#667085] text-base'>Page {currentPage} of {totalPages}</p>
                     </div>
