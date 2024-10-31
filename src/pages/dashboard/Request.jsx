@@ -17,6 +17,7 @@ const Request = ({ handleClose, data, userDetails }) => {
         try {
             await addDoc(collection(db, 'requests'), {
                 userDetails,
+                status: "Pending",
                 requestedAt: new Date(),
             });
             toast.success('Reward Request Submitted Successfully!');
