@@ -15,6 +15,7 @@ import Activity from "../../assets/svg/activity.svg"
 
 import ModalPop from '../../components/modalPop'
 import Request from './Request'
+import { CgSpinner } from 'react-icons/cg';
 
 const Dashboard = () => {
     const [search, setSearch] = useState("")
@@ -25,6 +26,7 @@ const Dashboard = () => {
     const [userDetails, setUserDetails] = useState({})
     const [referrals, setReferrals] = useState([]);
     const [statusFilter, setStatusFilter] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const qrRef = useRef();
     
@@ -39,6 +41,7 @@ const Dashboard = () => {
      const emailOrPhone = localStorage.getItem("emailOrPhone")
 
      const getDetails = async () => {
+        setLoading(true)
         try {
             const q = query(
                 collection(db, 'users'),
@@ -56,6 +59,8 @@ const Dashboard = () => {
             }
         } catch (err) {
             console.log(err, "Error fetching user details");
+        } finally {
+            setLoading(false)
         }
     };
     
@@ -189,7 +194,7 @@ const Dashboard = () => {
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="w-full sm:w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"  //"w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"
+                        className="w-full sm:w-[120px] h-[40px] border cursor-pointer border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"  //"w-[120px] h-[40px] border border-[#EBEDF0] outline-[#2D84FF] rounded-lg p-2"
                     >
                         <option value="">Filter</option>
                         <option value="Pending">Pending</option>
@@ -246,7 +251,16 @@ const Dashboard = () => {
                         </tr>
                     </thead>
                     <tbody className=''>
-                        {currentReferrals?.length > 0 ?
+                        {loading ? 
+                            <tr className='h-[300px] bg-white border-t border-grey-100'>
+                                <td colSpan="8" className="relative">
+                                    <div className='absolute inset-0 flex items-center justify-center'>
+                                        <CgSpinner className='animate-spin text-[#2D84FF] text-[200px]' /> 
+                                    </div>
+                                </td>
+                            </tr>
+                            :
+                            currentReferrals?.length > 0 ?
                             currentReferrals?.map((item, index) => (
                                 <tr key={index} className='w-full mt-[18px] border border-[#F0F1F3]'> {/*  onClick={() => navigate("/referrals/details", { state: item })} */}
                                     
@@ -289,24 +303,24 @@ const Dashboard = () => {
                 </table>
             </div>
             
-                <div className='w-full flex flex-col sm:flex-row items-center justify-between p-5'>
-                    <div className='bg-[#FAFAFE] w-full sm:w-[136px] h-[40px] flex items-center justify-center'>
-                        <p className='font-sans text-[#667085] text-base'>Page {currentPage} of {totalPages}</p>
+            <div className='w-full flex flex-col sm:flex-row items-center justify-between p-5'>
+                <div className='bg-[#FAFAFE] w-full sm:w-[136px] h-[40px] flex items-center justify-center'>
+                    <p className='font-sans text-[#667085] text-base'>Page {currentPage} of {totalPages}</p>
+                </div>
+                <div className='flex h-[34px] justify-center gap-2 items-center mt-4 sm:mt-0'>
+                    <div onClick={() => handlePrevPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}>
+                        <IoIosArrowBack className='text-[#667085]' />
                     </div>
-                    <div className='flex h-[34px] justify-center gap-2 items-center mt-4 sm:mt-0'>
-                        <div onClick={() => handlePrevPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}>
-                            <IoIosArrowBack className='text-[#667085]' />
+                    {[...Array(totalPages)].map((_, index) => (
+                        <div key={index} onClick={() => setCurrentPage(index + 1)} className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === index + 1 ? 'bg-[#FAFAFE] text-[#000]' : 'hover:bg-[#FAFAFE]'}`}>
+                            {index + 1}
                         </div>
-                        {[...Array(totalPages)].map((_, index) => (
-                            <div key={index} onClick={() => setCurrentPage(index + 1)} className={`flex justify-center items-center w-8 h-8 cursor-pointer ${currentPage === index + 1 ? 'bg-[#FAFAFE] text-[#000]' : 'hover:bg-[#FAFAFE]'}`}>
-                                {index + 1}
-                            </div>
-                        ))}
-                        <div onClick={() => handleNextPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}>
-                            <IoIosArrowForward className='text-[#667085]' />
-                        </div>
+                    ))}
+                    <div onClick={() => handleNextPage()} className={`bg-[#FAFAFE] w-8 h-8 flex justify-center items-center cursor-pointer ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}>
+                        <IoIosArrowForward className='text-[#667085]' />
                     </div>
                 </div>
+            </div>
             {/* <div className='w-full flex items-center justify-between p-5'>
                 <div className='bg-[#FAFAFE] w-[136px] h-[40px] flex items-center justify-center'>
                     <p className='font-sans text-[#667085] text-base'>Page 1 of 1</p>
