@@ -164,7 +164,7 @@ const Login = () => {
                                     </div>
                                     <div className='flex items-center gap-2'>
                                         <img src={Lock} alt='Lock' className='w-6 h-6' />
-                                        <p onClick={() => navigate('/referral/reset-password')} className="text-[#2D84FF] font-poppins text-xs mt-1.5 font-semibold cursor-pointer">Forgot Password?</p>
+                                        <p onClick={() => navigate('/reset-password')} className="text-[#2D84FF] font-poppins text-xs mt-1.5 font-semibold cursor-pointer">Forgot Password?</p>
                                     </div>
                                 </div>
                                 
@@ -176,7 +176,7 @@ const Login = () => {
                                     <p className='text-[#fff] text-sm font-poppins font-semibold'>{loading ? <CgSpinner className=" animate-spin text-lg " /> : 'Sign In'}</p>
                                     
                                 </button>
-                                <p className='font-poppins text-sm mt-[8px] text-center lg:mt-0'>Don't have an Account? <span className='cursor-pointer font-semibold font-poppins text-[#2D84FF]' onClick={() => navigate("/referral/register")}>Sign up</span></p>
+                                <p className='font-poppins text-sm mt-[8px] text-center lg:mt-0'>Don't have an Account? <span className='cursor-pointer font-semibold font-poppins text-[#2D84FF]' onClick={() => navigate("/register")}>Sign up</span></p>
                             </div>
 
                         </Form>

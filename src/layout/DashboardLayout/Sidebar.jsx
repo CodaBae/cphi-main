@@ -10,7 +10,7 @@ const Sidebar = ({ closeSidebar }) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/referral/login');
+    navigate('/login');
     closeSidebar();
   };
 

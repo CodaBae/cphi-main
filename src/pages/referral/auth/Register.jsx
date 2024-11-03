@@ -267,7 +267,7 @@ const Register = () => {
                                     <p className='text-[#fff] text-sm font-poppins font-semibold'>{loading ? <CgSpinner className=" animate-spin text-lg " /> : 'Create An Account'}</p>
                                     
                                 </button>
-                                <p className='font-poppins text-sm mt-[8px] text-center lg:mt-0'>Already have an Account? <span className='cursor-pointer font-semibold font-poppins text-[#2D84FF]' onClick={() => navigate("/referral/login")}>Sign In</span></p>
+                                <p className='font-poppins text-sm mt-[8px] text-center lg:mt-0'>Already have an Account? <span className='cursor-pointer font-semibold font-poppins text-[#2D84FF]' onClick={() => navigate("/login")}>Sign In</span></p>
                             </div>
 
                         </Form>

@@ -70,7 +70,7 @@ const Dashboard = () => {
         }
     }, [emailOrPhone]);
 
-    const referrerUrl = `https://cphi-social.vercel.app/${userDetails.referrerCode || ''}`; 
+    const referrerUrl = `https://cphi-social.vercel.app/ref/${userDetails.referrerCode || ''}`; 
 
     const downloadQRCode = () => {
         const canvas = qrRef.current.querySelector('canvas');

@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <div className='w-full fixed z-50 bg-[#fff]'>
-        <img src={Logo} alt="Logo" className='w-[276px] cursor-pointer h-[82px]' onClick={() => navigate("/referral")} />
+        <img src={Logo} alt="Logo" className='w-[276px] cursor-pointer h-[82px]' onClick={() => navigate("/")} />
     </div>
   )
 }

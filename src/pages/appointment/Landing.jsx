@@ -43,13 +43,13 @@ const Landing = () => {
 
 
   return (
-    <div className='flex w-full h-screen overflow-hidden'>
+    <div className='flex w-full flex-col lg:flex-row h-screen overflow-hidden'>
         <div className='hidden lg:block lg:w-[50%] h-screen'>
-            <img src={contentData?.img} alt='Testing' className='h-screen object-cover w-full' />
+            <img src={contentData?.img} alt='Testing Image' className='h-screen object-cover w-full' />
         </div>
         <div className='lg:w-6/12 w-full flex flex-col  items-center relative justify-center  px-10'>  
             <img src={Logo} alt='Logo' className=' object-contain w-full -mt-[10px]' />
-            <div className='w-full flex flex-col items-center justify-center gap-[43px]'>
+            <div className='w-full flex flex-col items-center justify-center gap-[23px] lg:gap-[43px]'>
                 <p className='font-sans font-medium text-center lg:w-[572px] mx-auto leading-[40px] lg:leading-[54px] text-[32px] lg:text-[52px] text-[#000000]'>
                     {contentData?.heading}
                 </p>
@@ -67,7 +67,9 @@ const Landing = () => {
                 </div>
             </div>
         </div>
-
+        <div className='lg:hidden block w-full mt-5'>
+            <img src={contentData?.img} alt='Testing Image' className=' object-cover w-full' />
+        </div>
     </div>
   )
 }

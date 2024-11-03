@@ -125,7 +125,7 @@ const Confirmed = () => {
 
             <div 
                 className='flex items-center justify-center gap-3 rounded-lg cursor-pointer bg-[#FF9000] lg:w-[258px] h-[45px] lg:h-[53px] p-2'
-                onClick={() => navigate(`/referral`)} //${referrerCode}
+                onClick={() => navigate(`/`)} //${referrerCode}
             >
                 <img src={Share} alt='Share'  className='w-4 h-4 lg:w-[25px] lg:h-[25px] text-[#FFFFFF] '/>
                 <p className='font-mulish font-bold text-sm lg:text-[20px] lg:mt-1 text-[#fff]'>Refer A Friend</p>

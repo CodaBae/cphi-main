@@ -112,24 +112,44 @@ const Services = () => {
     console.log(servicesData, "servicesData")
 
   return (
+    // <div className='w-full flex flex-col items-center justify-center gap-[93px]'>
+    //     <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+    //     <div className='flex items-center overflow-x-auto lg:grid  lg:grid-cols-4 mx-auto w-12/12 gap-[26px] mb-10'>
+    //         {
+    //             servicesData?.map((item) => (
+    //                 <div 
+    //                     key={item?.id} 
+    //                     className='border cursor-pointer border-dashed hover:shadow-xl w-[250px]  h-[250px] lg:w-[251px] lg:h-[287px] p-4 lg:p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
+    //                     onClick={() => {navigate("/steps"), handleService(item?.title)}}
+    //                 >
+    //                     <img src={ImgIcon} alt='icon' className='w-[40px] h-[40px]' />
+    //                     <p className='text-sm lg:text-[20px] text-[#14183E] font-medium text-center font-ubuntu text-[#14183E]'>{item?.title}</p>
+    //                     <p className='text-xs lg:text-[15px] font-ubuntu text-[#747582] overflow-y-auto font-normal text-center'>{item?.description}</p>
+    //                 </div>
+    //             ))
+    //         }
+    //     </div>
+    // </div>
     <div className='w-full flex flex-col items-center justify-center gap-[93px]'>
-        <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
-        <div className='grid grid-cols-2 lg:grid-cols-4 mx-auto w-12/12 gap-[26px] mb-10'>
-            {
-                servicesData?.map((item) => (
-                    <div 
-                        key={item?.id} 
-                        className='border cursor-pointer border-dashed hover:shadow-xl w-[150px] h-[250px] lg:w-[251px] lg:h-[287px] p-4 lg:p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px]'
-                        onClick={() => {navigate("/steps"), handleService(item?.title)}}
-                    >
-                        <img src={ImgIcon} alt='icon' className='w-[40px] h-[40px]' />
-                        <p className='text-sm lg:text-[20px] text-[#14183E] font-medium text-center font-ubuntu text-[#14183E]'>{item?.title}</p>
-                        <p className='text-xs lg:text-[15px] font-ubuntu text-[#747582] overflow-y-auto font-normal text-center'>{item?.description}</p>
-                    </div>
-                ))
-            }
-        </div>
+    <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+    <div className='flex items-center lg:grid lg:grid-cols-4 overflow-x-auto w-full mb-10 flex-nowrap px-4 lg:mx-auto gap-4 lg:overflow-x-hidden '>
+        {
+            servicesData?.map((item) => (
+                <div 
+                    key={item?.id} 
+                    className='border cursor-pointer border-dashed hover:shadow-xl mx-auto min-w-[250px] sm:min-w-[300px] lg:w-[251px] h-[250px] lg:h-[287px] p-4 lg:p-[31px] rounded-lg border-[#2D84FF] flex flex-col items-center gap-[15px] mr-4'
+                    onClick={() => {navigate("/steps"); handleService(item?.title);}}
+                >
+                    <img src={ImgIcon} alt='icon' className='w-[40px] h-[40px]' />
+                    <p className='text-sm lg:text-[20px] text-[#14183E] font-medium text-center font-ubuntu'>{item?.title}</p>
+                    <p className='text-xs lg:text-[15px] font-ubuntu text-[#747582] overflow-y-auto font-normal text-center'>{item?.description}</p>
+                </div>
+            ))
+        }
     </div>
+</div>
+
+
   )
 }
 
