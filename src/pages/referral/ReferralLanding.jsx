@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import Testing from "../../assets/png/testing.png"
 import Logo from "../../assets/svg/logo_big.svg"
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase-config'
@@ -8,10 +7,12 @@ import { collection, getDocs } from 'firebase/firestore'
 
 const ReferralLanding = () => {
     const [contentData, setContentData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     const getContent = async () => {
+        setLoading(true)
         try {
             const contentRef = collection(db, "content")
             const querySnapshot = await getDocs(contentRef);
@@ -21,6 +22,8 @@ const ReferralLanding = () => {
             setContentData(data)
         } catch (err) {
             console.log("Failed to fetch doc", err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -31,7 +34,11 @@ const ReferralLanding = () => {
   return (
     <div className='flex w-full flex-col lg:flex-row h-screen overflow-hidden'>
         <div className='w-[50%] hidden lg:block h-screen'>
-            <img src={contentData?.img} alt='Testing Image' className='h-screen object-cover w-full' />
+            {loading ? (
+                <div className='h-screen w-full bg-[#D1D5DB] animate-pulse' />
+            ) : (
+                <img src={contentData?.img} alt='Testing Image' className='h-screen object-cover w-full' />
+            )}
         </div>
         <div className='w-full lg:w-6/12 flex flex-col items-center relative justify-center  px-10'>  
             <img src={Logo} alt='Logo' className=' object-contain w-full -mt-[10px]' />
@@ -54,7 +61,13 @@ const ReferralLanding = () => {
             </div>
         </div>
         <div className='w-full lg:hidden block mt-5'>
-            <img src={contentData?.img} alt='Testing Image' className='object-cover w-full' />
+            {
+                loading ? (
+                    <div className='h-screen w-full bg-[#D1D5DB] animate-pulse' />
+                ) : (
+                    <img src={contentData?.img} alt='Testing Image' className='object-cover w-full' />
+                )
+            }
         </div>
 
     </div>

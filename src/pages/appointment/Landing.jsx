@@ -8,6 +8,7 @@ import { collection, getDocs } from 'firebase/firestore'
 
 const Landing = () => {
     const [contentData, setContentData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ const Landing = () => {
 
 
     const getContent = async () => {
+        setLoading(true)
         try {
             const contentRef = collection(db, "content")
             const querySnapshot = await getDocs(contentRef);
@@ -34,6 +36,8 @@ const Landing = () => {
             setContentData(data)
         } catch (err) {
             console.log("Failed to fetch doc", err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -44,8 +48,12 @@ const Landing = () => {
 
   return (
     <div className='flex w-full flex-col lg:flex-row h-screen overflow-hidden'>
-        <div className='hidden lg:block lg:w-[50%] h-screen'>
-            <img src={contentData?.img} alt='Testing Image' className='h-screen object-cover w-full' />
+        <div className='w-[50%] hidden lg:block h-screen'>
+            {loading ? (
+                <div className='h-screen w-full bg-[#D1D5DB] animate-pulse' />
+            ) : (
+                <img src={contentData?.img} alt='Testing Image' className='h-screen object-cover w-full' />
+            )}
         </div>
         <div className='lg:w-6/12 w-full flex flex-col  items-center relative justify-center  px-10'>  
             <img src={Logo} alt='Logo' className=' object-contain w-full -mt-[10px]' />
@@ -68,7 +76,13 @@ const Landing = () => {
             </div>
         </div>
         <div className='lg:hidden block w-full mt-5'>
-            <img src={contentData?.img} alt='Testing Image' className=' object-cover w-full' />
+            {
+                loading ? (
+                    <div className='h-screen w-full bg-[#D1D5DB] animate-pulse' />
+                ) : (
+                    <img src={contentData?.img} alt='Testing Image' className='object-cover w-full' />
+                )
+            }
         </div>
     </div>
   )
