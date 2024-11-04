@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import React, { useEffect, useState } from 'react';
+import { Formik, Form} from 'formik';
 import { Listbox } from '@headlessui/react';
 import { FiCalendar, FiClock } from 'react-icons/fi';
 import DatePicker from 'react-datepicker';
@@ -8,7 +8,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { CgSpinner } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { addDoc, collection, doc } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 
 import { db } from '../../../firebase-config';
 
@@ -18,13 +18,51 @@ const Booking = () => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [loading, setLoading] = useState(false) 
+  const [loading, setLoading] = useState(false);
+  const [referrerName, setReferrerName] = useState("") 
+  const [lg, setLg] = useState("")
 
   const navigate = useNavigate()
 
   const referrerCode = localStorage.getItem("referrerCode")
   const about = JSON.parse(localStorage.getItem("about"))
   const profile = JSON.parse(localStorage.getItem("profile"))
+
+  const getReferrerName = async () => {
+    if (referrerCode) {
+      try {
+        const q = query(collection(db, 'users'), where('referrerCode', '==', referrerCode));
+        const querySnapshot = await getDocs(q);
+  
+        if (!querySnapshot.empty) {
+          const docData = querySnapshot.docs[0].data();
+          setReferrerName(docData.fullName); 
+        } else {
+          console.log('No document found with the given referrerCode!');
+        }
+      } catch (error) {
+        console.error('Error fetching referrer name:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getReferrerName()
+  }, [])
+
+  const addActivity = async () => {
+  
+    const data = {
+      fullName: profile?.fullName || "Anonymous"
+    }
+
+    try {
+      const docRef = await addDoc(collection(db, "activity"), data);
+        console.log("Document ID:", docRef.id); 
+    } catch (error) {
+        console.error("Error submitting form:", error);
+    } 
+  }
 
   const submitForm = async (values) => {
     setLoading(true); 
@@ -34,6 +72,8 @@ const Booking = () => {
         date: new Date(values?.date).toLocaleDateString(),
         time: new Date(values?.time).toLocaleTimeString(),
         referrerCode,
+        referrerName,
+        lg,
         about,
         profile, 
         status: "Pending"
@@ -42,6 +82,7 @@ const Booking = () => {
     try {
         const docRef = await addDoc(collection(db, "referrals"), data);
         localStorage.setItem("client", JSON.stringify(data))
+        addActivity()
         navigate("/confirmed"); 
 
         console.log("Document ID:", docRef.id); 
@@ -101,6 +142,18 @@ const Booking = () => {
                   </Listbox.Options>
                 </div>
               </Listbox>
+            </div>
+
+            <div className='flex flex-col w-full gap-[6px]'>
+              <label className='font-mulish font-semibold text-[#333333] text-base'>Local Government</label>
+              <input
+                  name="lg"
+                  placeholder="Your Local Government"
+                  type="text" 
+                  value={lg}
+                  onChange={(e) => setLg(e.target.value)}
+                  className="outline-none bg-[#F2F2F2] text-[#424242] font-mulish text-base rounded-xl p-2 h-[56px]"
+              />
             </div>
 
             <div className="mb-4 mt-[43px]">

@@ -16,6 +16,8 @@ import Referrals from '../pages/dashboard/Referrals'
 import ProtectRoute from "./ProtectRoute"
 
 const Routers = () => {
+  const user = localStorage.getItem("emailOrPhone")
+  
   return (
     <Routes>
         <Route element={<PageLayout />}>
@@ -28,7 +30,14 @@ const Routers = () => {
             <Route path='/reset-password' element={<ResetPassword />} />
         </Route>
         <Route path='/ref/:id' element={<Landing />} />
-        <Route path='/' element={<ReferralLanding />} /> {/* /:id */}
+        {
+          user ? 
+          <Route element={<PageLayout />}> 
+             <Route path='/' element={<Login />} />
+          </Route> 
+          :
+          <Route path='/' element={<ReferralLanding />} /> 
+        }
         <Route element={<DashboardLayout />}>
             <Route path='/dashboard' element={<ProtectRoute><Dashboard /></ProtectRoute>} />
             <Route path='/details' element={<Referrals />} />

@@ -34,7 +34,7 @@ const Header = ({ toggleSidebar }) => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <img src={Bell} alt="Bell" className="w-5 h-5" />
+          <img src={Bell} alt="Bell" className="w-5 h-5 invisible" />
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { BiSolidCopy } from 'react-icons/bi'
 import { QRCodeCanvas } from 'qrcode.react';
 import { IoIosArrowBack, IoIosArrowDown, IoIosArrowForward } from 'react-icons/io'
-import { CiFilter } from 'react-icons/ci'
 import { TbDownload } from 'react-icons/tb'
 import { useNavigate } from 'react-router-dom'
 import { collection, getDocs, query, where } from 'firebase/firestore'
@@ -73,13 +72,40 @@ const Dashboard = () => {
     const referrerUrl = `https://cphi-social.vercel.app/ref/${userDetails.referrerCode || ''}`; 
 
     const downloadQRCode = () => {
-        const canvas = qrRef.current.querySelector('canvas');
-        const imageUrl = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = imageUrl;
-        link.download = "QRCode.png";
-        link.click();
+        const canvasElement = qrRef.current.querySelector('canvas');
+        const qrCodeDataUrl = canvasElement.toDataURL("image/png");
+    
+        // Create a new canvas for combining QR code and logo
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+    
+        // Set the canvas size to a larger width and height
+        canvas.width = 400; // Increase this to your preferred width
+        canvas.height = 500; // Adjust the height as needed
+    
+        // Draw the QR code on the new canvas
+        const qrImage = new Image();
+        qrImage.src = qrCodeDataUrl;
+        qrImage.onload = () => {
+            ctx.drawImage(qrImage, 50, 50, 300, 300); // Adjust positioning and scaling
+    
+            // Draw the logo below the QR code
+            const logoImage = new Image();
+            logoImage.src = Logo; // Path to your logo file
+            logoImage.onload = () => {
+                ctx.drawImage(logoImage, 50, 370, 300, 89); // Adjust positioning and scaling
+    
+                // Download the combined image
+                const imageUrl = canvas.toDataURL("image/png");
+                const link = document.createElement("a");
+                link.href = imageUrl;
+                link.download = "QRCode_with_Logo.png";
+                link.click();
+            };
+        };
     };
+    
+    
 
     const referrerCode = userDetails?.referrerCode
     const getReferrals = async () => {
@@ -151,23 +177,22 @@ const Dashboard = () => {
 
   return (
     <div className='w-full mt-2 '>
-        <div  className='flex flex-col sm:flex-row items-center gap-4 sm:gap-10'> {/*  className='flex items-center gap-[10px]' */}
-            <div className='w-full sm:w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-3 px-5' > {/* className='w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-[11px] px-5' */}
+        <div  className='flex flex-col sm:flex-row items-center gap-4 sm:gap-10'>
+            <div className='w-full sm:w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-3 px-5' > 
                 <div className='flex items-center cursor-pointer justify-between' onClick={() => copyToClipboard(referrerUrl)}>
                     <p className='font-sans text-sm text-[#424242]'>{referrerUrl}</p>
                     <BiSolidCopy className='text-[#2D84FF] w-5 h-5' />
                 </div>
              
-                <div className='flex flex-col mt-3 items-center gap-2'>
-                    <div className='flex items-start gap-2' ref={qrRef}>
+                <div className='flex flex-col mt-3 items-center gap-2 w-[300px] mx-auto' >
+                    <div className='flex items-start gap-2'  ref={qrRef}>
                         <QRCodeCanvas value={referrerUrl} size={61} bgColor={"#ffffff"} fgColor={"#000000"} />
                         <TbDownload className='w-4 h-4 text-[#2D84FF] cursor-pointer' onClick={downloadQRCode}/>
                     </div>
                     <img src={Logo} alt='Logo' className='w-[190px] h-[39px]' />
                 </div>
-                 
             </div>
-            <div className='w-full sm:w-[336px] rounded-lg h-[167px] border border-[#E0E2E7] flex flex-col py-3 px-5'> {/* className='w-[336px] rounded-lg  border border-[#E0E2E7] flex flex-col py-[11px] px-5' */}
+            <div className='w-full sm:w-[336px] rounded-lg h-[187px] border border-[#E0E2E7] flex flex-col py-3 px-5'>
                 <div className='flex items-center justify-between'>
                     <p className='font-sans text-sm text-[#817F9B]'>Total Referrals</p>
                     <div className='w-[44px] h-[44px] rounded-lg bg-[#5856D61A] p-2 flex items-center justify-center'>
@@ -181,11 +206,11 @@ const Dashboard = () => {
         </div>
 
         <div className='w-full mt-10'>
-            <div className='flex flex-col sm:flex-row items-center justify-between px-5 gap-3'> {/*  className='flex items-center justify-between px-5' */}
+            <div className='flex flex-col sm:flex-row items-center justify-between px-5 gap-3'>
                 <p className='font-sans text-[18px] font-medium text-[#1C1C1E]'>Referrals</p>
-                <div className='flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto'> {/* className='flex items-center gap-3' */}
+                <div className='flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto'> 
                     <input 
-                        className='w-full sm:w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'     //'w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'
+                        className='w-full sm:w-[290px] h-[40px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'     
                         type='text'
                         placeholder='Search...'
                         value={search}
@@ -201,10 +226,6 @@ const Dashboard = () => {
                         <option value="No Show">No Show</option>
                         <option value="Completed">Completed</option>
                     </select>
-                    {/* <div className='w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'>
-                        <CiFilter className='text-base text-[#6B788E]' />
-                        <p className='text-xs font-semibold font-sans text-[#7A8699]'>Filter</p>
-                    </div> */}
                     <div 
                         className='w-full lg:w-[87px] h-[40px] border border-[#EBEDF0] gap-1 cursor-pointer rounded-lg flex items-center p-3'
                         onClick={exportExcel}
@@ -239,15 +260,9 @@ const Dashboard = () => {
                             <th className='w-[298px] h-[18px] text-left font-sans text-[#333843] p-4 font-medium '>
                                 <p className='text-sm text-[#333843] font-sans'>Email/Phone</p>
                             </th>
-                            {/* <th className='w-[268px] h-[18px] text-left text-sm font-sans text-[#333843] p-4 font-medium '>
-                                <p className='text-sm text-[#333843] font-sans'>Phone</p>
-                            </th> */}
                             <th className='w-[157px] h-[18px] text-left font-sans text-[#333843] p-4 font-medium '>
                                 <p className='text-sm text-[#333843] font-sans'>Status</p>
                             </th>
-                            {/* <th className='w-[157px] h-[18px] text-left font-sans text-[#333843] p-4 font-medium '>
-                                <p className='text-sm text-[#333843] font-sans'>Total</p>
-                            </th> */}
                         </tr>
                     </thead>
                     <tbody className=''>
