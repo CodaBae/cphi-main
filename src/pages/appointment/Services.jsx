@@ -7,6 +7,7 @@ import { db } from '../../firebase-config'
 
 const Services = () => {
     const [servicesData, setServicesData] = useState([])
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     const navigate = useNavigate()
 
@@ -85,6 +86,15 @@ const Services = () => {
         },
     ]
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const handleService = (value) => {
         localStorage.setItem("service", value)
     }
@@ -109,6 +119,19 @@ const Services = () => {
         getServices()
     }, [])
 
+      // Function to handle hover effect
+    //   const handleMouseEnter = (e) => {
+    //     const card = e.currentTarget;
+    //     card.querySelector('.title').style.display = 'none';
+    //     card.querySelector('.description').style.display = 'block';
+    // };
+
+    // const handleMouseLeave = (e) => {
+    //     const card = e.currentTarget;
+    //     card.querySelector('.title').style.display = 'block';
+    //     card.querySelector('.description').style.display = 'none';
+    // };
+
     console.log(servicesData, "servicesData")
 
   return (
@@ -129,32 +152,40 @@ const Services = () => {
     //         }
     //     </div>
     // </div>
-    <div className='w-full flex flex-col items-center justify-center gap-[93px]'>
-        <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
-        <div className='flex items-center lg:grid lg:grid-cols-4 overflow-x-auto w-full mb-10 flex-nowrap px-4 lg:mx-auto gap-4 lg:overflow-x-hidden '>
-            {
-                servicesData?.map((item) => (
+    <div className='w-full flex flex-col items-center justify-center gap-[50px] px-4'>
+            <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
+                {servicesData?.map((item) => (
                     <div 
                         key={item?.id}
                         style={{ backgroundColor: item?.color }}
-                        className={`cursor-pointer  hover:shadow-xl mx-auto min-w-[250px] sm:min-w-[300px] lg:w-[251px] h-[250px] lg:h-[287px] p-4 lg:p-[31px] rounded-lg flex flex-col items-center justify-center gap-[15px] mr-4 relative transition-all duration-300`}
-                        onClick={() => { navigate("/steps"); handleService(item?.title) }}
+                        className='cursor-pointer hover:shadow-xl p-4 lg:p-[31px] rounded-lg flex items-center justify-center h-[250px] lg:h-[287px] transition-all duration-300 relative'
+                        onClick={() => { navigate("/steps"); handleService(item?.title); }}
+                        onMouseEnter={!isMobile ? (e) => {
+                            e.currentTarget.querySelector('.title').style.display = 'none';
+                            e.currentTarget.querySelector('.description').style.display = 'block';
+                        } : null}
+                        onMouseLeave={!isMobile ? (e) => {
+                            e.currentTarget.querySelector('.title').style.display = 'block';
+                            e.currentTarget.querySelector('.description').style.display = 'none';
+                        } : null}
                     >
                         <div className='flex flex-col items-center justify-center h-full w-full'>
-                            {/* Title */}
-                            <p className='text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu transition-all duration-300 hover:translate-y-[-50%]'>
+                            <p className={`title text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu ${isMobile ? '' : 'lg:opacity-100'}`}>
                                 {item?.title}
                             </p>
-                            {/* Description (hidden initially, appears on hover) */}
-                            <p className='text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center opacity-0 hover:opacity-100 transition-opacity duration-300 mt-4'>
+                            <p className={`description text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center ${isMobile ? '' : 'lg:opacity-0 lg:hover:opacity-100'} transition-opacity duration-300 mt-4`}>
                                 {item?.description}
                             </p>
                         </div>
                     </div>
-                ))
-            }
+                ))}
+            </div>
         </div>
-    </div>
+
+
+
+
 
 
 
