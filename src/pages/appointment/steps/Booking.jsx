@@ -50,19 +50,19 @@ const Booking = () => {
     getReferrerName()
   }, [])
 
-  const addActivity = async () => {
+  // const addActivity = async () => {
   
-    const data = {
-      fullName: profile?.fullName || "Anonymous"
-    }
+  //   const data = {
+  //     fullName: profile?.fullName || "Anonymous"
+  //   }
 
-    try {
-      const docRef = await addDoc(collection(db, "activity"), data);
-        console.log("Document ID:", docRef.id); 
-    } catch (error) {
-        console.error("Error submitting form:", error);
-    } 
-  }
+  //   try {
+  //     const docRef = await addDoc(collection(db, "activity"), data);
+  //       console.log("Document ID:", docRef.id); 
+  //   } catch (error) {
+  //       console.error("Error submitting form:", error);
+  //   } 
+  // }
 
   const submitForm = async (values) => {
     setLoading(true); 
@@ -75,17 +75,18 @@ const Booking = () => {
         referrerName,
         lg,
         about,
-        profile, 
+        profile,
+        hivStatus: "Unconfirmed", 
         status: "Pending"
     };
 
     try {
         const docRef = await addDoc(collection(db, "referrals"), data);
+        const actRef = await addDoc(collection(db, "activity"), data);
         localStorage.setItem("client", JSON.stringify(data))
-        addActivity()
         navigate("/confirmed"); 
 
-        console.log("Document ID:", docRef.id); 
+        console.log("Document ID:", docRef.id, actRef.id); 
     } catch (error) {
         console.error("Error submitting form:", error);
         toast.error("There was an error submitting the form. Please try again."); 

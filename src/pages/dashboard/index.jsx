@@ -31,7 +31,7 @@ const Dashboard = () => {
     
 
     const copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText(`Get free medical care using my referral code: ${text}`);
         alert('Copied to clipboard');
     };
 
