@@ -153,35 +153,37 @@ const Services = () => {
     //     </div>
     // </div>
     <div className='w-full flex flex-col items-center justify-center gap-[50px] px-4'>
-            <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
-                {servicesData?.map((item) => (
-                    <div 
-                        key={item?.id}
-                        style={{ backgroundColor: item?.color }}
-                        className='cursor-pointer hover:shadow-xl p-4 lg:p-[31px] rounded-lg flex items-center justify-center h-[250px] lg:h-[287px] transition-all duration-300 relative'
-                        onClick={() => { navigate("/steps"); handleService(item?.title); }}
-                        onMouseEnter={!isMobile ? (e) => {
-                            e.currentTarget.querySelector('.title').style.display = 'none';
-                            e.currentTarget.querySelector('.description').style.display = 'block';
-                        } : null}
-                        onMouseLeave={!isMobile ? (e) => {
-                            e.currentTarget.querySelector('.title').style.display = 'block';
-                            e.currentTarget.querySelector('.description').style.display = 'none';
-                        } : null}
-                    >
-                        <div className='flex flex-col items-center justify-center h-full w-full'>
-                            <p className={`title text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu ${isMobile ? '' : 'lg:opacity-100'}`}>
-                                {item?.title}
-                            </p>
-                            <p className={`description text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center ${isMobile ? '' : 'lg:opacity-0 lg:hover:opacity-100'} transition-opacity duration-300 mt-4`}>
-                                {item?.description}
-                            </p>
-                        </div>
-                    </div>
-                ))}
+    <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full'>
+        {servicesData?.map((item) => (
+            <div 
+                key={item?.id}
+                style={{ backgroundColor: item?.color }}
+                className='cursor-pointer hover:shadow-xl p-4 lg:p-[31px] rounded-lg flex items-center justify-center h-[250px] lg:h-[287px] transition-all duration-300 relative'
+                onClick={() => { navigate("/steps"); handleService(item?.title); }}
+            >
+                <div 
+                    className='flex flex-col items-center justify-center h-full w-full'
+                    onMouseEnter={!isMobile ? (e) => {
+                        e.currentTarget.querySelector('.title').style.opacity = 0;
+                        e.currentTarget.querySelector('.description').style.opacity = 1;
+                    } : null}
+                    onMouseLeave={!isMobile ? (e) => {
+                        e.currentTarget.querySelector('.title').style.opacity = 1;
+                        e.currentTarget.querySelector('.description').style.opacity = 0;
+                    } : null}
+                >
+                    <p className={`title text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu ${isMobile ? '' : 'lg:opacity-100'} transition-opacity duration-300`}>
+                        {item?.title}
+                    </p>
+                    <p className={`description text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center opacity-100 lg:opacity-0 transition-opacity duration-300 mt-4`}>
+                        {item?.description}
+                    </p>
+                </div>
             </div>
-        </div>
+        ))}
+    </div>
+</div>
 
 
 
