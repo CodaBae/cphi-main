@@ -9,6 +9,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { lagosLGAs, riversStateLGAs } from './Lgas';
 
 import { db } from '../../../firebase-config';
 
@@ -16,11 +17,13 @@ const locations = ["Select Location", "Lagos", "Port Harcourt"];
 
 const Booking = () => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
+  const [localGovernments, setLocalGovernments] = useState([]);
+  const [selectedLg, setSelectedLg] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [loading, setLoading] = useState(false);
   const [referrerName, setReferrerName] = useState("") 
-  const [lg, setLg] = useState("")
+
 
   const navigate = useNavigate()
 
@@ -50,19 +53,17 @@ const Booking = () => {
     getReferrerName()
   }, [])
 
-  // const addActivity = async () => {
-  
-  //   const data = {
-  //     fullName: profile?.fullName || "Anonymous"
-  //   }
-
-  //   try {
-  //     const docRef = await addDoc(collection(db, "activity"), data);
-  //       console.log("Document ID:", docRef.id); 
-  //   } catch (error) {
-  //       console.error("Error submitting form:", error);
-  //   } 
-  // }
+  // Update local governments list based on selected location
+  useEffect(() => {
+    if (selectedLocation === "Lagos") {
+      setLocalGovernments(lagosLGAs);
+    } else if (selectedLocation === "Port Harcourt") {
+      setLocalGovernments(riversStateLGAs);
+    } else {
+      setLocalGovernments([]);
+    }
+    setSelectedLg(""); // Reset LG when location changes
+  }, [selectedLocation]);
 
   const submitForm = async (values) => {
     setLoading(true); 
@@ -73,7 +74,7 @@ const Booking = () => {
         time: new Date(values?.time).toLocaleTimeString(),
         referrerCode,
         referrerName,
-        lg,
+        lg: selectedLg,
         about,
         profile,
         hivStatus: "Unconfirmed", 
@@ -145,7 +146,7 @@ const Booking = () => {
               </Listbox>
             </div>
 
-            <div className='flex flex-col w-full gap-[6px]'>
+            {/* <div className='flex flex-col w-full gap-[6px]'>
               <label className='font-mulish font-semibold text-[#333333] text-base'>Local Government</label>
               <input
                   name="lg"
@@ -155,7 +156,47 @@ const Booking = () => {
                   onChange={(e) => setLg(e.target.value)}
                   className="outline-none bg-[#F2F2F2] text-[#424242] font-mulish text-base rounded-xl p-2 h-[56px]"
               />
+            </div> */}
+
+            <div className="mb-4">
+              <label className="block text-base font-mulish font-semibold text-[#333333]">
+                Local Government <span className="text-RED-_100">*</span>
+              </label>
+              <Listbox 
+                value={selectedLg} 
+                onChange={(value) => {
+                  setSelectedLg(value);
+                  setFieldValue("lg", value);
+                }}
+                disabled={!selectedLocation || selectedLocation === "Select Location"}
+              >
+                <div className="relative mt-1">
+                  <Listbox.Button className="w-full h-[51px] font-mulish text-[#424242] cursor-pointer rounded-md bg-[#F2F2F2] px-4 py-2 text-left">
+                    <div className='flex items-center justify-between'>
+                        <p className='font-mulish text-[#424242] text-base'>{selectedLg || "Select Local Government"}</p>
+                        <IoIosArrowDown
+                            className="h-5 w-5 text-[#2D84FF]"
+                            aria-hidden="true"
+                        />
+                    </div>
+                  </Listbox.Button>
+                  <Listbox.Options className="absolute mt-1 w-full rounded-md bg-[#fff] z-20 shadow-lg">
+                    {localGovernments.map((lg) => (
+                      <Listbox.Option
+                        key={lg}
+                        value={lg}
+                        className={({ active }) =>
+                          `cursor-pointer select-none px-4 py-2 ${active ? 'bg-blue-100' : ''}`
+                        }
+                      >
+                        {lg}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
             </div>
+
 
             <div className="mb-4 mt-[43px]">
               <label className="block text-base font-mulish font-semibold text-[#333333]">

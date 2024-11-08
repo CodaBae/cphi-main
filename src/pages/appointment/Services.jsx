@@ -8,6 +8,7 @@ const Services = () => {
     const [servicesData, setServicesData] = useState([]);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [hoveredCardId, setHoveredCardId] = useState(null);
+    const [search, setSearch] = useState("")
 
     const navigate = useNavigate();
 
@@ -117,12 +118,24 @@ const Services = () => {
     useEffect(() => {
         getServices();
     }, []);
+    console.log(servicesData, "servicesData")
+
+    const filteredServices = servicesData?.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()) || "")
 
     return (
         <div className='w-full flex flex-col items-center justify-center gap-[50px] px-4'>
             <p className='font-sans text-[#000000] text-[34px] lg:text-[52px] font-medium'>Our Services</p>
+            <div className='flex items-center justify-center'>
+                <input 
+                    name='search'
+                    placeholder='Search Services...'
+                    value={search}
+                    className='w-[300px] lg:w-[590px] h-[50px] outline-[#2D84FF] rounded-lg p-2 border border-[#E1E5F3]'
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
             <div className='flex flex-wrap gap-6 justify-center w-full mb-5'>
-                {servicesData?.map((item) => (
+                {filteredServices?.map((item) => (
                     <div 
                         key={item?.id}
                         style={{ backgroundColor: item?.color }}
