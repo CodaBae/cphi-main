@@ -14,9 +14,11 @@ import { lagosLGAs, riversStateLGAs } from './Lgas';
 import { db } from '../../../firebase-config';
 
 const locations = ["Select Location", "Lagos", "Port Harcourt"];
+const sexOptions = ["", "Male", "Female"]
 
 const Booking = () => {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
+  const [selectedSex, setSelectedSex] = useState(sexOptions[0]);
   const [localGovernments, setLocalGovernments] = useState([]);
   const [selectedLg, setSelectedLg] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -75,6 +77,7 @@ const Booking = () => {
         referrerCode,
         referrerName,
         lg: selectedLg,
+        sex: selectedSex, 
         about,
         profile,
         hivStatus: "Unconfirmed", 
@@ -99,7 +102,7 @@ const Booking = () => {
   return (
     <div className="p-4 mt-[59px] w-11/12 lg:w-auto ">
       <Formik
-        initialValues={{ location: selectedLocation, date: selectedDate, time: selectedTime }}
+        initialValues={{ location: selectedLocation, date: selectedDate, sex:selectedSex, time: selectedTime }}
         onSubmit={(values) => {
           console.log(values);
           submitForm(values)
@@ -146,18 +149,6 @@ const Booking = () => {
               </Listbox>
             </div>
 
-            {/* <div className='flex flex-col w-full gap-[6px]'>
-              <label className='font-mulish font-semibold text-[#333333] text-base'>Local Government</label>
-              <input
-                  name="lg"
-                  placeholder="Your Local Government"
-                  type="text" 
-                  value={lg}
-                  onChange={(e) => setLg(e.target.value)}
-                  className="outline-none bg-[#F2F2F2] text-[#424242] font-mulish text-base rounded-xl p-2 h-[56px]"
-              />
-            </div> */}
-
             <div className="mb-4">
               <label className="block text-base font-mulish font-semibold text-[#333333]">
                 Local Government <span className="text-RED-_100">*</span>
@@ -196,7 +187,44 @@ const Booking = () => {
                 </div>
               </Listbox>
             </div>
-
+            
+            <div className="mb-4">
+              <label className="block text-base font-mulish font-semibold text-[#333333]">
+                Sex <span className="text-RED-_100">*</span>
+              </label>
+              <Listbox 
+                value={selectedSex} 
+                onChange={(value) => {
+                  setSelectedSex(value);
+                  setFieldValue("sex", value);
+                }}
+              >
+                <div className="relative mt-1">
+                  <Listbox.Button className="w-full h-[51px] font-mulish text-[#424242] cursor-pointer rounded-md bg-[#F2F2F2] px-4 py-2 text-left">
+                    <div className='flex items-center justify-between'>
+                        <p className='font-mulish text-[#424242] text-base'>{selectedSex || "Select Sex"}</p>
+                        <IoIosArrowDown
+                            className="h-5 w-5 text-[#2D84FF]"
+                            aria-hidden="true"
+                        />
+                    </div>
+                  </Listbox.Button>
+                  <Listbox.Options className="absolute mt-1 w-full rounded-md bg-[#fff] z-20 shadow-lg">
+                    {sexOptions.map((gen) => (
+                      <Listbox.Option
+                        key={gen}
+                        value={gen}
+                        className={({ active }) =>
+                          `cursor-pointer select-none px-4 py-2 ${active ? 'bg-blue-100' : ''}`
+                        }
+                      >
+                        {gen}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </div>
+              </Listbox>
+            </div>
 
             <div className="mb-4 mt-[43px]">
               <label className="block text-base font-mulish font-semibold text-[#333333]">
