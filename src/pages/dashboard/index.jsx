@@ -69,7 +69,7 @@ const Dashboard = () => {
         }
     }, [emailOrPhone]);
 
-    const referrerUrl = `https://cphi-social.vercel.app/ref/${userDetails.referrerCode || ''}`; 
+    const referrerUrl = `https://refer.cphinigeria.org/ref/${userDetails.referrerCode || ''}`; 
 
     const downloadQRCode = () => {
         const canvasElement = qrRef.current.querySelector('canvas');
@@ -178,7 +178,7 @@ const Dashboard = () => {
   return (
     <div className='w-full mt-2 '>
         <div  className='flex flex-col sm:flex-row items-center gap-4 sm:gap-10'>
-            <div className='w-full sm:w-[336px] rounded-lg h-auto border border-[#E0E2E7] flex flex-col py-3 px-5' > 
+            <div className='w-full sm:w-[336px] rounded-lg h-[187px] border border-[#E0E2E7] flex flex-col py-3 px-5' > 
                 <div className='flex items-center cursor-pointer justify-between' onClick={() => copyToClipboard(referrerUrl)}>
                     <p className='font-sans text-sm text-[#424242]'>{referrerUrl}</p>
                     <BiSolidCopy className='text-[#2D84FF] w-5 h-5' />

@@ -135,45 +135,49 @@ const Services = () => {
                 />
             </div>
             <div className='flex flex-wrap gap-6 justify-center w-full mb-5'>
-                {filteredServices?.map((item) => (
-                    <div 
-                        key={item?.id}
-                        style={{ backgroundColor: item?.color }}
-                        className='cursor-pointer hover:shadow-xl p-4 lg:p-[31px] rounded-lg w-[300px] flex flex-col items-center justify-center h-[250px] lg:h-[250px] transition-all duration-300 relative'
-                        onClick={() => { navigate("/steps"); handleService(item?.title); }}
-                        onMouseEnter={!isMobile ? () => setHoveredCardId(item.id) : null}
-                        onMouseLeave={!isMobile ? () => setHoveredCardId(null) : null}
-                    >
-                        <div className='flex flex-col items-center justify-center w-full relative'>
-                            {/* Desktop View */}
-                            {!isMobile && (
-                                <>
-                                    {hoveredCardId === item.id ? (
-                                        <p className='text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center transition-opacity duration-300'>
-                                            {item?.description}
-                                        </p>
-                                    ) : (
-                                        <p className='text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu transition-opacity duration-300'>
+                { filteredServices?.length > 0 ?
+                    filteredServices?.map((item) => (
+                        <div 
+                            key={item?.id}
+                            style={{ backgroundColor: item?.color }}
+                            className='cursor-pointer hover:shadow-xl p-4 lg:p-[31px] rounded-lg w-[300px] flex flex-col items-center justify-center h-[250px] lg:h-[250px] transition-all duration-300 relative'
+                            onClick={() => { navigate("/steps"); handleService(item?.title); }}
+                            onMouseEnter={!isMobile ? () => setHoveredCardId(item.id) : null}
+                            onMouseLeave={!isMobile ? () => setHoveredCardId(null) : null}
+                        >
+                            <div className='flex flex-col items-center justify-center w-full relative'>
+                                {/* Desktop View */}
+                                {!isMobile && (
+                                    <>
+                                        {hoveredCardId === item.id ? (
+                                            <p className='text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center transition-opacity duration-300'>
+                                                {item?.description}
+                                            </p>
+                                        ) : (
+                                            <p className='text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu transition-opacity duration-300'>
+                                                {item?.title}
+                                            </p>
+                                        )}
+                                    </>
+                                )}
+
+                                {/* Mobile View */}
+                                {isMobile && (
+                                    <>
+                                        <p className='text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu'>
                                             {item?.title}
                                         </p>
-                                    )}
-                                </>
-                            )}
-
-                            {/* Mobile View */}
-                            {isMobile && (
-                                <>
-                                    <p className='text-sm lg:text-[25px] lg:leading-[30px] text-[#fff] font-medium text-center font-ubuntu'>
-                                        {item?.title}
-                                    </p>
-                                    <p className='text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center'>
-                                        {item?.description}
-                                    </p>
-                                </>
-                            )}
+                                        <p className='text-xs lg:text-[15px] font-ubuntu text-[#fff] font-normal text-center'>
+                                            {item?.description}
+                                        </p>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                    :
+                    <p className='text-3xl font-sans font-medium mt-10'>No Services Available</p>
+                }
             </div>
         </div>
     );
