@@ -51,7 +51,7 @@ const Dashboard = () => {
             
             if (!querySnapshot.empty) {
                 const userData = querySnapshot.docs[0].data(); 
-                console.log(userData, "User data");
+            
                 setUserDetails(userData)
             } else {
                 console.log("No user found with this email or phone.");
@@ -125,8 +125,7 @@ const Dashboard = () => {
             console.error("Error fetching user details:", err);
         }
     };
-    
-    console.log(referrals, "scheme");
+
 
     useEffect(() => {
         if (referrerCode) {

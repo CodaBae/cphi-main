@@ -10,8 +10,7 @@ const Profile = ({ handleSteps }) => {
             fullName: values?.checked ? "Anonymous" : values?.fullName,
             emailOrphone: values?.emailOrphone
         }
-        // console.log(data, "skip")
-        // return
+
         localStorage.setItem("profile", JSON.stringify(data))
         handleSteps(2)
     }
@@ -28,7 +27,7 @@ const Profile = ({ handleSteps }) => {
                     // validationSchema={formValidationSchema}
                     onSubmit={(values, action) => {
                     window.scrollTo(0, 0);
-                    console.log(values, "market")
+             
                     submitForm(values, action);
                 }}
             >

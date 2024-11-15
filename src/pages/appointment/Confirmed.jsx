@@ -11,7 +11,6 @@ const Confirmed = () => {
 
     const client = JSON.parse(localStorage.getItem("client"))
     const referrerCode = localStorage.getItem("referrerCode")
-    console.log(client, "client")
 
 
 

@@ -90,7 +90,7 @@ const Booking = () => {
         localStorage.setItem("client", JSON.stringify(data))
         navigate("/confirmed"); 
 
-        console.log("Document ID:", docRef.id, actRef.id); 
+       
     } catch (error) {
         console.error("Error submitting form:", error);
         toast.error("There was an error submitting the form. Please try again."); 
@@ -104,7 +104,7 @@ const Booking = () => {
       <Formik
         initialValues={{ location: selectedLocation, date: selectedDate, sex:selectedSex, time: selectedTime }}
         onSubmit={(values) => {
-          console.log(values);
+
           submitForm(values)
          
         }}

@@ -13,7 +13,7 @@ const Landing = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     
-    console.log(id, "samba")
+   
     const setId = () => {
         localStorage.setItem("referrerCode", id)
     }

@@ -118,7 +118,7 @@ const Services = () => {
     useEffect(() => {
         getServices();
     }, []);
-    console.log(servicesData, "servicesData")
+   
 
     const filteredServices = servicesData?.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()) || "")
 
