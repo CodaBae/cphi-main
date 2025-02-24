@@ -56,7 +56,7 @@ const ReferralLanding = () => {
                     >
                         <p className='text-[#FFFCF7] font-sen font-bold text-base lg:text-[24px]'>Refer a Friend</p>
                     </button>
-                    <p className='font-sans text-sm lg:text-[23px] text-[#000]'>All services are completely <span className='text-[#FF9000]'>free</span></p>
+                    {/* <p className='font-sans text-sm lg:text-[23px] text-[#000]'>All services are completely <span className='text-[#FF9000]'>free</span></p> */}
                 </div>
             </div>
         </div>

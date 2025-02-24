@@ -188,7 +188,7 @@ const Referrals = () => {
 
                         <div 
                             onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)} 
-                            className={`bg-[#FAFAFE] transition-all duration-500 ease-in-out flex justify-center items-center cursor-pointer w-8 h-full  bg-[#FAFAFE] ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}
+                            className={` transition-all duration-500 ease-in-out flex justify-center items-center cursor-pointer w-8 h-full  bg-[#FAFAFE] ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}
                         >
                             <IoIosArrowForward className='text-[#667085] hover:text-[#fff]'/>
                         </div>
