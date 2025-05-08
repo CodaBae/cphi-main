@@ -69,7 +69,7 @@ const Dashboard = () => {
         }
     }, [emailOrPhone]);
 
-    const referrerUrl = `https://refer.cphinigeria.org/ref/${userDetails.referrerCode || ''}`; 
+    const referrerUrl = `https://refer.cphing.org/ref/${userDetails.referrerCode || ''}`; 
 
     const downloadQRCode = () => {
         const canvasElement = qrRef.current.querySelector('canvas');
